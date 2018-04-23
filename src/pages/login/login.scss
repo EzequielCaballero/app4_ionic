@@ -1,0 +1,31 @@
+page-login {
+  ion-content{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#121b1c+1,155ca3+47,98deea+99 */
+    background: #38242f; /* Old browsers */
+    background: -moz-linear-gradient(45deg, #38242f 2%, #c16f4b 49%, #ffd3d4 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #38242f 2%,#c16f4b 49%,#ffd3d4 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #38242f 2%,#c16f4b 49%,#ffd3d4 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#121b1c', endColorstr='#98deea',GradientType=0 ); /* IE6-9 */
+  }
+
+  img{
+    width: 150px;
+  }
+
+  h3{
+    color: white;
+  }
+
+  .top-30{
+    margin-top: 30%;
+  }
+
+  .top-20{
+    margin-top: 20%;
+  }
+
+  .top-5{
+    margin-top: 5%;
+  }
+
+}

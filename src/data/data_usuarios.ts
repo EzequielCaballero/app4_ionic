@@ -1,0 +1,38 @@
+//Base de usuarios: total => 4
+export const USUARIOS = [
+      {
+        id:1,
+        nombre:"admin@gmail.com",
+        clave:11,
+        perfil:"admin",
+        sexo:"femenino"
+      },
+      {
+        id:2,
+        nombre:"invitado@gmail.com",
+        clave:22,
+        perfil:"invitado",
+        sexo:"femenino"
+      },
+      {
+        id:3,
+        nombre:"usuario@gmail.com",
+        clave:33,
+        perfil:"usuario",
+        sexo:"masculino"
+      },
+      {
+        id:4,
+        nombre:"anonimo@gmail.com",
+        clave:44,
+        perfil:"usuario",
+        sexo:"masculino"
+      },
+      {
+        id:5,
+        nombre:"tester@gmail.com",
+        clave:55,
+        perfil:"tester",
+        sexo:"femenino"
+      }
+];

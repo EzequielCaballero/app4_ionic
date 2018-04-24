@@ -20,11 +20,13 @@ export class LoginPage {
   userNameTxt:string;
   userPassTxt:number;
   emailFormat:string = '^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i';
-
+  audio = new Audio();
   //CONSTRUCTOR
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public fbLogin:FormBuilder) {
+    this.userNameTxt = "";
+    this.userPassTxt = null;
     this.usuarios = USUARIOS.slice(0);
     this.myLoginForm = this.fbLogin.group({
       userEmail: ['', [Validators.required, Validators.email]],
@@ -47,13 +49,12 @@ export class LoginPage {
     }
     if(!this.flag){
       console.log("El usuario no existe!");
+      this.reproducirSonido();
       this.mostrarAlerta();
     }
   }
 
   ingresar(usuario:any){
-    this.userNameTxt = "";
-    this.userPassTxt = null;
     this.navCtrl.push(HomePage, {'userData': usuario});
   }
 
@@ -86,5 +87,9 @@ export class LoginPage {
     });
     toast.present();
   }
-
+  reproducirSonido(){
+    this.audio.src = "assets/sounds/windows_xp_error.mp3";
+    this.audio.load();
+    this.audio.play();
+  }
 }

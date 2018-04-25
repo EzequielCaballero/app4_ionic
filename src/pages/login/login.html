@@ -2,62 +2,54 @@
 
   <ion-grid>
       <ion-row>
-        <ion-col class="top-5">
+        <ion-col class="top-1">
           <img src="assets/imgs/login3.png" alt="login imagen">
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col class="top-20">
-          <h3>COMENZAR</h3>
-        </ion-col>
-      </ion-row>
+
+<!-- OPCIONES DE LOGUEO -->
+      <ion-fab top right>
+        <button ion-fab mini color="loginOp"><ion-icon name="ios-cloud-upload-outline"></ion-icon></button>
+        <ion-fab-list side="left">
+          <button ion-fab (click)="ingresoDePrueba('user')"><ion-icon name="ios-people"></ion-icon></button>
+          <button ion-fab (click)="ingresoDePrueba('admin')"><ion-icon name="ios-contact"></ion-icon></button>
+          <button ion-fab (click)="ingresoDePrueba('invited')"><ion-icon name="ios-contacts"></ion-icon></button>
+        </ion-fab-list>
+        <ion-fab-list side="down">
+          <button ion-fab (click)="ingresoDePrueba('tester')"><ion-icon name="ios-person-outline"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
 
 <!-- FORMULARIO -->
-      <form [formGroup]="myLoginForm" (ngSubmit)="validarUsuario()" novalidate>
+      <form [formGroup]="myLoginForm" (ngSubmit)="validarUsuario()" novalidate class="top-1">
         <ion-row>
-          <ion-col class="top-5">
+          <ion-col>
+            <h5>COMENZAR</h5>
             <!-- USUARIO -->
             <ion-item>
-                <ion-label stacked>Usuario</ion-label>
-                <ion-input formControlName="userEmail" id="userNameInput" type="text" [(ngModel)]="userNameTxt"></ion-input>
+                <ion-input formControlName="userEmail" id="userNameInput" type="text" placeholder="Usuario" [(ngModel)]="userNameTxt" (ionFocus)='tieneFoco(1)' (ionBlur)='perdioFoco(1)'></ion-input>
             </ion-item>
-            <ion-item *ngIf="myLoginForm.get('userEmail').errors && myLoginForm.get('userEmail').dirty">
-              <p color="danger" ion-text *ngIf="myLoginForm.get('userEmail').hasError('required')">Campo requerido</p>
-              <p color="danger" ion-text *ngIf="myLoginForm.get('userEmail').hasError('email')">Formato de email incorrecto</p>
+            <ion-item *ngIf="myLoginForm.get('userEmail').errors && myLoginForm.get('userEmail').dirty && !focus1">
+              <p color="danger" ion-text *ngIf="myLoginForm.get('userEmail').hasError('required') && !focus1">Campo requerido</p>
+              <p color="danger" ion-text *ngIf="myLoginForm.get('userEmail').hasError('email') && !myLoginForm.get('userEmail').hasError('required') && !focus1">Formato de email incorrecto</p>
             </ion-item>
             <!-- CONTRASEÑA -->
             <ion-item>
-              <ion-label stacked>Clave</ion-label>
-              <ion-input formControlName="userPassword" id="userPassInput" type="password" [(ngModel)]="userPassTxt"></ion-input>
+              <ion-input formControlName="userPassword" id="userPassInput" type="password" placeholder="Contraseña" [(ngModel)]="userPassTxt" (ionFocus)='tieneFoco(2)' (ionBlur)='perdioFoco(2)'></ion-input>
             </ion-item>
-            <ion-item *ngIf="myLoginForm.get('userPassword').errors && myLoginForm.get('userPassword').dirty">
-              <p color="danger" ion-text *ngIf="myLoginForm.get('userPassword').hasError('required')">Campo requerido</p>
-              <p color="danger" ion-text *ngIf="myLoginForm.get('userPassword').hasError('pattern')">Formato de password incorrecto</p>
+            <ion-item *ngIf="myLoginForm.get('userPassword').errors && myLoginForm.get('userPassword').dirty && !focus2">
+              <p color="danger" ion-text *ngIf="myLoginForm.get('userPassword').hasError('required') && !focus2">Campo requerido</p>
             </ion-item>
-          </ion-col>
-        </ion-row>
-        <!-- SUBMIT -->
-        <ion-row>
-          <ion-col class="top-5">
-            <button type="submit" ion-button color="login" icon-left block
-              [disabled]="myLoginForm.invalid">
-              <ion-icon name="md-contact"></ion-icon>
-              Ingresar
-            </button>
+            <!-- SUBMIT -->
+              <button type="submit" ion-button color="login" icon-left block
+                [disabled]="myLoginForm.invalid">
+                <ion-icon name="md-contact"></ion-icon>
+                Ingresar
+              </button>
           </ion-col>
         </ion-row>
       </form>
 
   </ion-grid>
-
-  <ion-fab right bottom>
-    <button ion-fab mini color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
-    <ion-fab-list side="left">
-      <button ion-fab (click)="ingresoDePrueba('admin')"><ion-icon name="ios-contact"></ion-icon></button>
-      <button ion-fab (click)="ingresoDePrueba('user')"><ion-icon name="ios-people"></ion-icon></button>
-      <button ion-fab (click)="ingresoDePrueba('invited')"><ion-icon name="ios-contacts"></ion-icon></button>
-      <button ion-fab (click)="ingresoDePrueba('tester')"><ion-icon name="ios-person-outline"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
 
 </ion-content>

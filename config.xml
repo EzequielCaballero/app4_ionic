@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.EzequielCaballero.app00004" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>relevamientoVisual</name>
+    <name>4.Relevamiento Visual</name>
     <description>Aplicación de manejo de imagenes con Firebase</description>
     <author email="kb33.developer@gmail.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />

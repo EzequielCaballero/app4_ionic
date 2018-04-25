@@ -16,6 +16,8 @@ export class LoginPage {
   //ATRIBUTOS
   myLoginForm:FormGroup;
   flag:boolean = false;
+  focus1:boolean = false;
+  focus2:boolean = false;
   usuarios:Usuario[] = [];
   userNameTxt:string;
   userPassTxt:number;
@@ -30,11 +32,38 @@ export class LoginPage {
     this.usuarios = USUARIOS.slice(0);
     this.myLoginForm = this.fbLogin.group({
       userEmail: ['', [Validators.required, Validators.email]],
-      userPassword: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+      userPassword: ['', [Validators.required]],
     });
   }
 
   //METODOS
+  perdioFoco(input:number){
+    switch(input)
+    {
+      case 1:
+      this.focus1 = false;
+      console.log("Perdio foco 1!");
+      break;
+      case 2:
+      this.focus2 = false;
+      console.log("Perdio foco 2!");
+      break;
+    }
+  }
+
+  tieneFoco(input:number){
+    switch(input)
+    {
+      case 1:
+      this.focus1 = true;
+      console.log("Tiene foco 1!");
+      break;
+      case 2:
+      this.focus2 = true;
+      console.log("Tiene foco 2!");
+      break;
+    }
+  }
   validarUsuario(){
     this.flag = false;
     console.log("Validando usuario...");

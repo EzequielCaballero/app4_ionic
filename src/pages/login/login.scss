@@ -1,13 +1,71 @@
 page-login {
   ion-content{
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#121b1c+1,155ca3+47,98deea+99 */
-    background: #38242f; /* Old browsers */
-    background: -moz-linear-gradient(45deg, #38242f 2%, #c16f4b 49%, #ffd3d4 99%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(45deg, #38242f 2%,#c16f4b 49%,#ffd3d4 99%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(45deg, #38242f 2%,#c16f4b 49%,#ffd3d4 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#121b1c', endColorstr='#98deea',GradientType=0 ); /* IE6-9 */
+    background: rgb(38,21,7);
+    background: -moz-linear-gradient(45deg, rgba(38,21,7,1) 0%, rgba(186,98,35,1) 39%, rgba(221,135,73,1) 63%, rgba(249,227,174,1) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(38,21,7,1) 0%,rgba(186,98,35,1) 39%,rgba(221,135,73,1) 63%,rgba(249,227,174,1) 100%);
+    background: linear-gradient(45deg, rgba(38,21,7,1) 0%,rgba(186,98,35,1) 39%,rgba(221,135,73,1) 63%,rgba(249,227,174,1) 100%);
+  }
+  .submitPanel{
+    padding-top: 10px;
+  }
+  .buttonIngresar{
+    display:block;
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 3px solid #653711;
+    background: #3d230c;
+    background: -moz-linear-gradient(45deg, #3d230c 0%, #e5852b 50%, #f28232 58%, #5e3523 100%);
+    background: -webkit-linear-gradient(45deg, #3d230c 0%,#e5852b 50%,#f28232 58%,#5e3523 100%);
+    background: linear-gradient(45deg, #3d230c 0%,#e5852b 50%,#f28232 58%,#5e3523 100%);
   }
 
+  .buttonIngresar:active {
+    box-shadow: 0 5px 0 #362504;
+    background: #4e2d0f;
+    top: 5px;
+  }
+
+  .inputData{
+    background-color: rgba(236, 201, 159, 0.65);
+  }
+
+  .inputDataError{
+    background-color: rgba(236, 159, 159, 0.65);
+  }
+
+  ion-item .inputData{
+    width: 100%;
+  }
+
+  .buttonSubmit{
+    position:fixed;
+    right: 10px;
+    padding:0px;
+    margin:0px;
+    width: 60px;
+    height:100%;
+  }
+
+  .iconoLogin{
+    font-size: 50px;
+  }
+
+  .opcionSubmit{
+    border-radius: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .botonesLogueo{
+    margin-bottom: 40px;
+  }
+
+  .nombreApp{
+    font-style:italic;
+    color: rgba(#652424, 0.88);
+  }
   img{
     width: 100px;
   }
@@ -29,4 +87,35 @@ page-login {
   .bottom-1{
     margin-top: 1%;
   }
+
+  .spinner {
+  width: 100px;
+  height: 100px;
+  margin: 100px auto;
+  background-color: rgba(#333333, 0);
+
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+
+  @-webkit-keyframes sk-scaleout {
+    0% { -webkit-transform: scale(0) }
+    100% {
+      -webkit-transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes sk-scaleout {
+    0% {
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    } 100% {
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+
 }

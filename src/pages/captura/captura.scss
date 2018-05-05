@@ -1,0 +1,28 @@
+page-captura {
+
+  .cajaPanel{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
+
+  }
+
+  .buttonUno, .buttonDos{
+    height: 100%;
+    width: 100%;
+  }
+
+  .buttonUno:active{
+    background-color: rgb(30, 105, 29);
+    box-shadow: 0 5px 0 #04360c;
+    top: 2px;
+  }
+
+  .buttonDos:active{
+    background-color: rgb(105, 29, 29);
+    box-shadow: 0 5px 0 #360404;
+    top: 2px;
+  }
+
+}

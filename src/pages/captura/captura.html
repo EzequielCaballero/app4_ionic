@@ -1,0 +1,29 @@
+<ion-content>
+
+  <!-- VOLVER ATRAS -->
+  <ion-fab>
+    <button ion-fab mini color="primary" (click)="volver()">
+      <ion-icon name="md-arrow-round-back"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <!-- BOTON 1 -->
+  <div class="cajaPanel">
+    <div class="cajaBoton">
+      <button class="buttonUno" ion-button color="secondary" icon-right block
+        (click)="verAlerta(1)">
+        Cosas lindas
+        <ion-icon name="md-checkmark-circle"></ion-icon>
+      </button>
+    </div>
+    <!-- BOTON 2 -->
+    <div class="cajaBoton">
+      <button class="buttonDos" ion-button color="danger" icon-right block
+        (click)="verAlerta(2)">
+        Cosas feas
+        <ion-icon name="md-close-circle"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+</ion-content>

@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { timer } from 'rxjs/observable/timer';
 //PAGINA
 import { HomePage } from '../home/home';
 //MANEJO DE DATOS
 import { USUARIOS } from "../../data/data_usuarios"; // FUENTE
 import { Usuario } from "../../interfaces/usuario_interface"; //FORMATO
+//jQUERY
+import * as $ from 'jquery';
 
 @Component({
   selector: 'page-login',
@@ -18,6 +21,8 @@ export class LoginPage {
   flag:boolean = false;
   focus1:boolean = false;
   focus2:boolean = false;
+  mostrarSpinner:boolean = false;
+  mostrarIngreso:boolean = false;
   usuarios:Usuario[] = [];
   userNameTxt:string;
   userPassTxt:number;
@@ -27,6 +32,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public fbLogin:FormBuilder) {
+
     this.userNameTxt = "";
     this.userPassTxt = null;
     this.usuarios = USUARIOS.slice(0);
@@ -37,7 +43,18 @@ export class LoginPage {
   }
 
   //METODOS
+  activarInicio(){
+    timer(500).subscribe(()=> {
+      $('.submitPanel').addClass('animated fadeOut');
+    });
+    timer(1000).subscribe(()=> {
+      $('#cajaLogueo').addClass('animated fadeIn');
+      this.mostrarIngreso = true;
+    });
+  }
+
   perdioFoco(input:number){
+    $('.botonesLogueo').removeClass('animated flash');
     switch(input)
     {
       case 1:
@@ -52,6 +69,7 @@ export class LoginPage {
   }
 
   tieneFoco(input:number){
+    $('.botonesLogueo').addClass('animated flash');
     switch(input)
     {
       case 1:

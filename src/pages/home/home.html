@@ -1,19 +1,34 @@
 <ion-header>
   <ion-navbar hideBackButton color="navBar">
     <ion-title text-center>
-      CARGA DE IMAGENES
+      RELEVAMIENTO VISUAL
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>BIENVENIDO!</h3>
-  <p> Cuenta: {{sesionUsuario.nombre}}<br>
-      Perfil: {{sesionUsuario.perfil}}<br>
-      Sexo: {{sesionUsuario.sexo}}</p>
-  <button ion-button color="google" icon-left block
-          (click)="cerrarSesion()">
-    <ion-icon name="md-contact"></ion-icon>
-    Cerrar sesión
-  </button>
+  <div class="body">
+    <h3>BIENVENIDO!</h3>
+    <p> <strong>Cuenta:</strong> {{sesionUsuario.nombre}}<br>
+        <strong>Perfil:</strong> {{sesionUsuario.perfil}}<br>
+        <strong>Sexo:</strong> {{sesionUsuario.sexo}}</p>
+    <div class="panelBotones">
+      <button ion-button color="facebook" icon-left block
+              (click)="irTomarFoto()">
+        <ion-icon name="md-camera"></ion-icon>
+        Cargar imágen
+      </button>
+      <br>
+      <button ion-button color="secondary" icon-left block
+              (click)="irLista()">
+        <ion-icon name="ios-list-box-outline"></ion-icon>
+        Lista de imágenes
+      </button>
+    </div>
+    <br><br><br>
+    <button class="buttonLogout" ion-button color="google"
+            (click)="cerrarSesion()">
+      SALIR
+    </button>
+  </div>
 </ion-content>

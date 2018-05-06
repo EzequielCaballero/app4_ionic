@@ -7,11 +7,9 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="body">
+  <div class="body" *ngIf="!mostrarSpinner">
     <h3>BIENVENIDO!</h3>
-    <p> <strong>Cuenta:</strong> {{sesionUsuario.nombre}}<br>
-        <strong>Perfil:</strong> {{sesionUsuario.perfil}}<br>
-        <strong>Sexo:</strong> {{sesionUsuario.sexo}}</p>
+    <p> <strong>Perfil:</strong> {{perfil}}<br>
     <div class="panelBotones">
       <button ion-button color="facebook" icon-left block
               (click)="irTomarFoto()">
@@ -30,5 +28,10 @@
             (click)="cerrarSesion()">
       SALIR
     </button>
+  </div>
+
+  <!-- SPINNER -->
+  <div *ngIf="mostrarSpinner" class="spinner">
+    <img src="assets/imgs/spinner_white.png" alt="spinner">
   </div>
 </ion-content>

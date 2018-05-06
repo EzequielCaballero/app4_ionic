@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, App } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { timer } from 'rxjs/observable/timer';
 //PAGINA
-import { HomePage } from '../home/home';
-//MANEJO DE DATOS
-import { USUARIOS } from "../../data/data_usuarios"; // FUENTE
-import { Usuario } from "../../interfaces/usuario_interface"; //FORMATO
+import { HomePage } from '../indexPaginas';
+
+//FIREBASE
+import { AngularFireAuth} from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { AngularFireDatabase } from 'angularfire2/database';
+import{ Observable } from 'rxjs/Observable';
 //jQUERY
 import * as $ from 'jquery';
 
@@ -17,25 +20,31 @@ import * as $ from 'jquery';
 export class LoginPage {
 
   //ATRIBUTOS
+  perfil:string = "";
+  userActive:any;
   myLoginForm:FormGroup;
   flag:boolean = false;
   focus1:boolean = false;
   focus2:boolean = false;
   mostrarSpinner:boolean = false;
   mostrarIngreso:boolean = false;
-  usuarios:Usuario[] = [];
   userNameTxt:string;
-  userPassTxt:number;
+  userPassTxt:string;
   emailFormat:string = '^(?:[^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*|"[^\n"]+")@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i';
   audio = new Audio();
+  user: Observable<firebase.User>;
   //CONSTRUCTOR
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
-              public fbLogin:FormBuilder) {
+              public fbLogin:FormBuilder,
+              private afAuth:AngularFireAuth,
+              private afDB: AngularFireDatabase,
+              private _app:App) {
 
+    this.user = this.afAuth.authState;
+    console.log("Sesion activa?: " + this.afAuth.auth.currentUser);
     this.userNameTxt = "";
-    this.userPassTxt = null;
-    this.usuarios = USUARIOS.slice(0);
+    this.userPassTxt = "";
     this.myLoginForm = this.fbLogin.group({
       userEmail: ['', [Validators.required, Validators.email]],
       userPassword: ['', [Validators.required]],
@@ -82,46 +91,70 @@ export class LoginPage {
       break;
     }
   }
+
   validarUsuario(){
-    this.flag = false;
-    console.log("Validando usuario...");
-    console.info(this.usuarios);
-    for(let user of this.usuarios){
-      if(this.myLoginForm.value.userEmail == user.nombre && this.myLoginForm.value.userPassword == user.clave)
-      {
-        this.ingresar(user);
-        this.flag = true;
-        break;
-      }
-    }
-    if(!this.flag){
-      console.log("El usuario no existe!");
-      this.reproducirSonido();
-      this.mostrarAlerta();
-    }
+    this.mostrarSpinner = true;
+    this.afAuth
+      .auth
+      .signInWithEmailAndPassword(this.myLoginForm.value.userEmail, this.myLoginForm.value.userPassword)
+      .then(value => {
+        console.log('Funciona!' + JSON.stringify(value));
+        switch(this.afAuth.auth.currentUser.uid)
+        {
+          case "oH9eyTlmM6d3vshHf2XjN1E1VjG3": this.perfil = "Administrador";
+          break;
+          case "VWgqQZ3XI6bOUMQDJkvmShqKe3s2":
+          case "VeXKdJ2j5xMkeO6Ixnjo3b347xi2": this.perfil = "Usuario";
+          break;
+          case "c5Q4Lpo3NuXkqpmWMcodAfsczxN2": this.perfil = "Invitado";
+          break;
+          case "sIzJqRlfOUMqz3zLMmnSoPyNdzk2": this.perfil = "Tester";
+          break;
+        }
+          this.mostrarSpinner = false;
+          this.ingresar();
+        //this.ingresar(value);
+      })
+      .catch(err => {
+        console.log('Algo salió mal: ',err.message);
+        this.reproducirSonido();
+        this.mostrarSpinner = false;
+        this.mostrarAlerta();
+      });
   }
 
-  ingresar(usuario:any){
-    this.navCtrl.push(HomePage, {'userData': usuario});
+  ingresar(){
+    this.userActive = firebase.auth().currentUser;
+    this.userActive.updateProfile({
+      displayName: this.perfil,
+      //photoURL: "https://example.com/jane-q-user/profile.jpg"
+    }).then(value => {
+      // Update successful.
+      this.navCtrl.push(HomePage);
+    })
+    .catch(err => {
+      console.log('Algo salió mal: ',err.message);
+      this.reproducirSonido();
+    });
   }
 
   ingresoDePrueba(user:string){
     switch(user){
       case 'admin':
         this.userNameTxt = "admin@gmail.com";
-        this.userPassTxt = 11;
+        this.userPassTxt = "admin11";
         break;
       case 'user':
         this.userNameTxt = "usuario@gmail.com";
-        this.userPassTxt = 33;
+        this.userPassTxt = "user33";
         break;
       case 'invited':
         this.userNameTxt = "invitado@gmail.com";
-        this.userPassTxt = 22;
+        this.userPassTxt = "invitado22";
         break;
       case 'tester':
         this.userNameTxt = "tester@gmail.com";
-        this.userPassTxt = 55;
+        this.userPassTxt = "tester55";
         break;
     }
   }

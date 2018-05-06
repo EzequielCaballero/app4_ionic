@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { LoginPage, CapturaPage, ListaPage } from '../../pages/indexPaginas';
+//FIREBASE
+import { AngularFireAuth} from 'angularfire2/auth';
 //jQUERY
 import * as $ from 'jquery';
 
@@ -11,19 +13,20 @@ import * as $ from 'jquery';
 export class HomePage {
 
   audio = new Audio();
-  sesionUsuario:any;
+  perfil:string;
+  mostrarSpinner:boolean = false;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
-
-          this.sesionUsuario = navParams.get('userData');
+              public navParams: NavParams,
+              private afAuth:AngularFireAuth) {
           //this.reproducirSonido();
-          console.log(this.sesionUsuario);
+          this.perfil = this.afAuth.auth.currentUser.displayName;
 
   }
 
   ionViewDidEnter(){
     $('.panelBotones').addClass('animated flash');
+    this.mostrarSpinner = false;
   }
 
   reproducirSonido(){
@@ -32,12 +35,17 @@ export class HomePage {
     this.audio.play();
   }
   irTomarFoto(){
-    this.navCtrl.push(CapturaPage, {'sesionUsuario':this.sesionUsuario});
+    this.navCtrl.push(CapturaPage);
   }
   irLista(){
     this.navCtrl.push(ListaPage);
   }
+
   cerrarSesion(){
+    //this._app.getRootNav().setRoot(LoginPage);
+    this.afAuth
+      .auth
+      .signOut();
     this.navCtrl.push(LoginPage);
   }
 

@@ -1,7 +1,7 @@
 export interface Usuario{
   id:number,
   nombre:string,
-  clave:number,
+  clave:string,
   perfil:string,
   sexo:string
 }

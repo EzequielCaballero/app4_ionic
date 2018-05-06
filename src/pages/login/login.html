@@ -16,7 +16,7 @@
 
 <!-- CAJA PRINCIPAL -->
   <div id="cajaLogueo" *ngIf="mostrarIngreso">
-    <ion-grid>
+    <ion-grid *ngIf="!mostrarSpinner">
 
     <!-- FORMULARIO -->
         <form [formGroup]="myLoginForm" (ngSubmit)="validarUsuario()" novalidate>

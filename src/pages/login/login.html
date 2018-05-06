@@ -16,53 +16,54 @@
 
 <!-- CAJA PRINCIPAL -->
   <div id="cajaLogueo" *ngIf="mostrarIngreso">
-    <ion-grid *ngIf="!mostrarSpinner">
+    <div *ngIf="!mostrarSpinner">
+      <ion-grid>
 
-    <!-- FORMULARIO -->
-        <form [formGroup]="myLoginForm" (ngSubmit)="validarUsuario()" novalidate>
-          <ion-row class="formLogin">
-            <ion-col>
-              <!-- USUARIO -->
-              <ion-item class="inputData">
-                  <ion-input formControlName="userEmail" id="userNameInput" type="text" placeholder="Ingrese usuario" [(ngModel)]="userNameTxt" (ionFocus)='tieneFoco(1)' (ionBlur)='perdioFoco(1)'></ion-input>
-              </ion-item>
-              <ion-item class="inputDataError" *ngIf="myLoginForm.get('userEmail').errors && myLoginForm.get('userEmail').dirty && !focus1">
-                <p color="dangerDark" ion-text *ngIf="myLoginForm.get('userEmail').hasError('required') && !focus1">Campo requerido ↑</p>
-                <p color="dangerDark" ion-text *ngIf="myLoginForm.get('userEmail').hasError('email') && !myLoginForm.get('userEmail').hasError('required') && !focus1">Formato de email incorrecto ↑</p>
-              </ion-item>
-              <!-- CONTRASEÑA -->
-              <ion-item class="inputData">
-                <ion-input formControlName="userPassword" id="userPassInput" type="password" placeholder="Ingrese clave" [(ngModel)]="userPassTxt" (ionFocus)='tieneFoco(2)' (ionBlur)='perdioFoco(2)'></ion-input>
-              </ion-item>
-              <ion-item class="inputDataError" *ngIf="myLoginForm.get('userPassword').errors && myLoginForm.get('userPassword').dirty && !focus2">
-                <p color="dangerDark" ion-text *ngIf="myLoginForm.get('userPassword').hasError('required') && !focus2">Campo requerido ↑</p>
-              </ion-item>
-              <!-- SUBMIT -->
-                <button class="buttonSubmit" type="submit" ion-button color="login" icon-center block
-                  [disabled]="myLoginForm.invalid">
-                  <ion-icon class="iconoLogin" name="md-log-in"></ion-icon>
-                </button>
-            </ion-col>
-          </ion-row>
-        </form>
-    </ion-grid>
-    <!-- OPCIONES DE LOGUEO -->
-      <div class="botonesLogueo">
-          <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('admin')"><ion-icon name="ios-contact"></ion-icon></button>
-          <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('user')"><ion-icon name="ios-people"></ion-icon></button>
-          <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('invited')"><ion-icon name="ios-contacts"></ion-icon></button>
-          <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('tester')"><ion-icon name="ios-person-outline"></ion-icon></button>
+      <!-- FORMULARIO -->
+          <form [formGroup]="myLoginForm" (ngSubmit)="validarUsuario()" novalidate>
+            <ion-row class="formLogin">
+              <ion-col>
+                <!-- USUARIO -->
+                <ion-item class="inputData">
+                    <ion-input formControlName="userEmail" id="userNameInput" type="text" placeholder="Ingrese usuario" [(ngModel)]="userNameTxt" (ionFocus)='tieneFoco(1)' (ionBlur)='perdioFoco(1)'></ion-input>
+                </ion-item>
+                <ion-item class="inputDataError" *ngIf="myLoginForm.get('userEmail').errors && myLoginForm.get('userEmail').dirty && !focus1">
+                  <p color="dangerDark" ion-text *ngIf="myLoginForm.get('userEmail').hasError('required') && !focus1">Campo requerido ↑</p>
+                  <p color="dangerDark" ion-text *ngIf="myLoginForm.get('userEmail').hasError('email') && !myLoginForm.get('userEmail').hasError('required') && !focus1">Formato de email incorrecto ↑</p>
+                </ion-item>
+                <!-- CONTRASEÑA -->
+                <ion-item class="inputData">
+                  <ion-input formControlName="userPassword" id="userPassInput" type="password" placeholder="Ingrese clave" [(ngModel)]="userPassTxt" (ionFocus)='tieneFoco(2)' (ionBlur)='perdioFoco(2)'></ion-input>
+                </ion-item>
+                <ion-item class="inputDataError" *ngIf="myLoginForm.get('userPassword').errors && myLoginForm.get('userPassword').dirty && !focus2">
+                  <p color="dangerDark" ion-text *ngIf="myLoginForm.get('userPassword').hasError('required') && !focus2">Campo requerido ↑</p>
+                </ion-item>
+                <!-- SUBMIT -->
+                  <button class="buttonSubmit" type="submit" ion-button color="login" icon-center block
+                    [disabled]="myLoginForm.invalid">
+                    <ion-icon class="iconoLogin" name="md-log-in"></ion-icon>
+                  </button>
+              </ion-col>
+            </ion-row>
+          </form>
+      </ion-grid>
+      <!-- OPCIONES DE LOGUEO -->
+        <div class="botonesLogueo">
+            <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('admin')"><ion-icon name="ios-contact"></ion-icon></button>
+            <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('user')"><ion-icon name="ios-people"></ion-icon></button>
+            <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('invited')"><ion-icon name="ios-contacts"></ion-icon></button>
+            <button class="opcionSubmit" color="loginOp" ion-button (click)="ingresoDePrueba('tester')"><ion-icon name="ios-person-outline"></ion-icon></button>
+        </div>
       </div>
+      <!-- IMAGEN + TITULO-->
+      <ion-row>
+        <ion-col>
+          <img src="assets/imgs/login3.png" alt="login imagen">
+        </ion-col>
+      </ion-row>
+      <h5 class="nombreApp" ion-text text-center>Relevamiento visual</h5>
 
-    <!-- IMAGEN + TITULO-->
-    <ion-row>
-      <ion-col>
-        <img src="assets/imgs/login3.png" alt="login imagen">
-      </ion-col>
-    </ion-row>
-    <h5 class="nombreApp" ion-text text-center>Relevamiento visual</h5>
-
-  </div>
+    </div>
 
   <!-- SPINNER -->
     <div *ngIf="mostrarSpinner" class="spinner">

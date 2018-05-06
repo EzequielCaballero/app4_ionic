@@ -1,0 +1,36 @@
+
+<!-- VOLVER ATRAS -->
+<ion-fab>
+  <button ion-fab mini color="primary" (click)="volver()">
+    <ion-icon name="md-arrow-round-back"></ion-icon>
+  </button>
+</ion-fab>
+
+
+<ion-content padding>
+
+    <!--TITULO + IMAGEN DESCRIPTIVA-->
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Titulo</ion-label>
+        <ion-input type="text" [(ngModel)]="titulo"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="imagenPreview">
+        <img [src]="imagenPreview">
+      </ion-item>
+    </ion-list>
+
+    <!--OPCIONES DE SELECCION DE IMAGEN-->
+    <ion-grid>
+      <ion-row>
+          <ion-col>
+              <button ion-button item-left block
+                      (click)="mostrar_camara()">
+                  <ion-icon name="camera"></ion-icon>
+                  &nbsp;CAMARA
+              </button>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+
+</ion-content>

@@ -3,7 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 //PAGES
-import { LoginPage, HomePage, CapturaPage, ListaPage, TabsPage } from '../pages/indexPaginas';
+import { LoginPage, HomePage, CapturaPage, CamaraPage, ListaPage, TabsPage } from '../pages/indexPaginas';
+//****************************CAMARA PLUGIN*****************************//
+import { Camera } from '@ionic-native/camera';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,6 +31,7 @@ export const firebaseConfig = {
     LoginPage,
     HomePage,
     CapturaPage,
+    CamaraPage,
     ListaPage,
     TabsPage
   ],
@@ -52,6 +55,7 @@ export const firebaseConfig = {
     LoginPage,
     HomePage,
     CapturaPage,
+    CamaraPage,
     ListaPage,
     TabsPage
   ],
@@ -60,7 +64,8 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireDatabase,
-    CargarArchivoProvider
+    CargarArchivoProvider,
+    Camera
   ]
 })
 export class AppModule {}

@@ -76,7 +76,7 @@ export class CargarArchivoProvider {
     return promesa;
   }
 
-  cargar_imagen_storage( archivo:Archivo ){
+  cargar_imagen_storage( archivo:any ){
 
     //Promesa que determina un tiempo hasta que se complete la carga de la imagen
     let promesa = new Promise( (resolve, reject)=>{

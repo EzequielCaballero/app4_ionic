@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { HomePage } from '../indexPaginas';
+import { HomePage, CamaraPage } from '../indexPaginas';
 
 @Component({
   selector: 'page-captura',
@@ -8,12 +8,11 @@ import { HomePage } from '../indexPaginas';
 })
 export class CapturaPage {
 
-  sesionUsuario:any;
+  opcionElegida:string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController) {
-    this.sesionUsuario = this.navParams.get('sesionUsuario');
   }
 
   ionViewDidLoad() {
@@ -23,12 +22,13 @@ export class CapturaPage {
   verAlerta(opcion:number){
     switch(opcion){
       case 1:
-      this.dispararAlerta("Cosas LINDAS del edificio");
+      this.opcionElegida = "LINDAS";
       break;
       case 2:
-      this.dispararAlerta("Cosas FEAS del edificio");
+      this.opcionElegida = "FEAS";
       break;
     }
+    this.navCtrl.push(CamaraPage, {'opcion':this.opcionElegida});
   }
 
   dispararAlerta(eleccion:string) {
@@ -60,7 +60,7 @@ export class CapturaPage {
 }
 
   volver(){
-    this.navCtrl.push(HomePage, { 'userData':this.sesionUsuario });
+    this.navCtrl.push(HomePage);
   }
 
 }

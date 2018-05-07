@@ -16,7 +16,6 @@ export class CapturaPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CapturaPage');
   }
 
   verAlerta(opcion:number){

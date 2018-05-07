@@ -42,7 +42,7 @@ export class CamaraPage {
     }
 
     //Implementación y almacenado de la imagen tomada en base64
-    this.camera.getPicture(options).then((imageData) => {
+     this.camera.getPicture(options).then((imageData) => {
      this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
      this.imagenParaSubir = imageData;
     }, (err) => {

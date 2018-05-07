@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //Componente: Toast
 import { ToastController } from 'ionic-angular';
@@ -85,6 +84,7 @@ export class CargarArchivoProvider {
       //Declaración
       let storeRef = firebase.storage().ref();
       //Tarea de Carga (creación de carpeta "img" si no existe en opción Storage de Firebase)
+      let unique_ID:string = new Date().valueOf().toString(); // 1231243245
       let uploadTask: firebase.storage.UploadTask =
         storeRef.child(`img/${ this.afAuth.auth.currentUser.uid }`)
                 .putString( archivo.img, 'base64', { contentType:'image/jpeg'});
@@ -103,7 +103,7 @@ export class CargarArchivoProvider {
               this.mostrar_toast("Carga exitosa");
               //FIN---pasar imagenes a la database, obteniendo URL generada
               let url = uploadTask.snapshot.downloadURL;
-              this.cargar_imagen_database(archivo.titulo, url);
+              this.cargar_imagen_database(archivo.titulo, url, unique_ID);
               resolve();
             }
         )
@@ -112,7 +112,7 @@ export class CargarArchivoProvider {
     return promesa;
   }//FIN DEL METODO
 
-  private cargar_imagen_database(titulo: string, url: string){
+  private cargar_imagen_database(titulo: string, url: string, unique_ID: string){
 
       //IMPORTANTE: "galeria" es el nombre del objeto creado en la DB
       let currentDate = new Date();
@@ -122,7 +122,7 @@ export class CargarArchivoProvider {
         fecha: currentDate.getDay().toString()+'-'+currentDate.getMonth().toString()+'-'+currentDate.getFullYear().toString(),
         hora: currentDate.getHours().toString(),
         img: url,
-        key: this.afAuth.auth.currentUser.uid
+        key: unique_ID //date in code
       }
 
       console.log(JSON.stringify(galeria));

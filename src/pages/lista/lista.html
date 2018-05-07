@@ -1,12 +1,26 @@
-<ion-header>
+<ion-content>
 
-  <ion-navbar color="navBar">
-    <ion-title>Lista de fotos</ion-title>
-  </ion-navbar>
+  <!-- VOLVER ATRAS -->
+  <ion-fab>
+    <button ion-fab mini color="primary" (click)="volver()">
+      <ion-icon name="md-arrow-round-back"></ion-icon>
+    </button>
+  </ion-fab>
 
-</ion-header>
+  <div class="galeriaContenido">
+    <!--BLOQUE DE INFORMACIÓN "card"-->
+    <ion-card *ngFor="let item of _cargarArchivo.imagenes">
+      <img [src]=item.img>
+      <ion-card-content>
+          <ion-card-title>
+            {{item.titulo}}
+          </ion-card-title>
+      </ion-card-content>
+    </ion-card>
 
-
-<ion-content padding>
-  <p>Lista de imágenes subidas por usuario...</p>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
+                         [enabled]="hayMasCarga">
+       <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
 </ion-content>

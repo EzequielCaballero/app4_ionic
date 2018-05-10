@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, App } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { timer } from 'rxjs/observable/timer';
 //PAGINA
@@ -8,7 +8,6 @@ import { HomePage } from '../indexPaginas';
 //FIREBASE
 import { AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { AngularFireDatabase } from 'angularfire2/database';
 import{ Observable } from 'rxjs/Observable';
 //jQUERY
 import * as $ from 'jquery';
@@ -37,9 +36,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public fbLogin:FormBuilder,
-              private afAuth:AngularFireAuth,
-              private afDB: AngularFireDatabase,
-              private _app:App) {
+              private afAuth:AngularFireAuth) {
 
     this.user = this.afAuth.authState;
     console.log("Sesion activa?: " + this.afAuth.auth.currentUser);

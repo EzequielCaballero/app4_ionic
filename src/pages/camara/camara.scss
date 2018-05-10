@@ -1,3 +1,26 @@
 page-camara {
 
+  .tituloLabel{
+    text-align: right;
+  }
+
+  .buttonSubir{
+    background-color: rgb(53, 193, 117);
+    display:block;
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 50%;
+  }
+
+  .buttonSubir:active {
+    box-shadow: 0 5px 0 #043609;
+    background: #0f4e31;
+    top: 5px;
+  }
+
+  .iconSubir{
+    font-size: 50px;
+  }
+
 }

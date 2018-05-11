@@ -12,11 +12,11 @@
     <ion-card *ngFor="let item of _cargarArchivo.imagenes">
       <img [src]=item.img>
       <ion-card-content>
-          <ion-card-title>
-            {{item.usuario}}
-            {{item.titulo}}
-            {{item.fecha}}
-            {{item.hora}}
+          <ion-card-title class="listaDeDatos">
+            <strong>Usuario:</strong> {{item.usuario}}<br>
+            <strong>Título:</strong> {{item.titulo}}<br>
+            <strong>Día:</strong> {{item.fecha}}<br>
+            <strong>Hora:</strong> {{item.hora}}hs.
           </ion-card-title>
       </ion-card-content>
     </ion-card>

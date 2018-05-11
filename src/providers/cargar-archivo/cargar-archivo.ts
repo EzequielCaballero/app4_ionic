@@ -50,22 +50,22 @@ export class CargarArchivoProvider {
                  .orderByKey()//Criterio de ordenación por key
                  .endAt( this.lastKey )//Interrupción de la lectura al alcanzar último key.
       ).valueChanges()
-       .subscribe ( (posts:any)=>{
-          posts.pop();//Elimina la última imágen del arreglo (que ya es subida por método: cargar_ultima_imagen)
+       .subscribe ( (galeria:any)=>{
+          galeria.pop();//Elimina la última imágen del arreglo (que ya es subida por método: cargar_ultima_imagen)
 
           //Si se alcanza el final de imágenes (primer imágen subida)...
-          if(posts.length == 0){
+          if(galeria.length == 0){
             console.log("Ya no hay más registros");
             resolve(false);
             return;
           }
 
-          this.lastKey = posts[0].key; //Se actualiza la ultima key.
+          this.lastKey = galeria[0].key; //Se actualiza la ultima key.
 
           //Se insertan las imágenes al array "imagenes" (de la última a la primera) conforme cómo se obtuvieron de firebase
-          for (let i = posts.length-1; i >= 0; i--) {
-              let galeria = posts[i];
-              this.imagenes.push(galeria);
+          for (let i = galeria.length-1; i >= 0; i--) {
+              let imagen = galeria[i];
+              this.imagenes.push(imagen);
           }
           resolve(true);//Es como decir: "puede haber más imagenes".
        })
@@ -119,8 +119,8 @@ export class CargarArchivoProvider {
       let galeria:Archivo = {
         usuario: this.afAuth.auth.currentUser.email,
         titulo: titulo,
-        fecha: currentDate.getDay().toString()+'-'+currentDate.getMonth().toString()+'-'+currentDate.getFullYear().toString(),
-        hora: currentDate.getHours().toString(),
+        fecha: currentDate.getDay().toString()+'/'+currentDate.getMonth().toString()+'/'+currentDate.getFullYear().toString(),
+        hora: currentDate.getHours().toString()+':'+currentDate.getMinutes().toString(),
         img: url,
         key: unique_ID //date in code
       }

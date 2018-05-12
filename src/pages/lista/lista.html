@@ -11,7 +11,7 @@
   <div *ngIf="!mostrarSpinner">
       <div class="galeriaContenido">
         <!--BLOQUE DE INFORMACIÓN "card"-->
-        <ion-card *ngFor="let item of imagenes">
+        <ion-card *ngFor="let item of _cargarArchivo.imagenes">
           <ion-card-content [ngClass]="item.tematica">
               <img class="imgSource" [src]=item.img>
               <ion-card-title class="listaDeDatos">

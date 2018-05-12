@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { LoginPage, CapturaPage, ListaPage } from '../../pages/indexPaginas';
 //FIREBASE
-import { AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 //jQUERY
 import * as $ from 'jquery';
 
@@ -42,11 +42,11 @@ export class HomePage {
   }
 
   cerrarSesion(){
-    //this._app.getRootNav().setRoot(LoginPage);
     this.afAuth
       .auth
-      .signOut();
-    this.navCtrl.push(LoginPage);
+      .signOut().then((resolve) => {
+        this.navCtrl.push(LoginPage)
+      });
   }
 
 }

@@ -1,26 +1,24 @@
-
-<!-- VOLVER ATRAS -->
-<ion-fab>
-  <button ion-fab mini color="primary" (click)="volver()">
-    <ion-icon name="md-arrow-round-back"></ion-icon>
-  </button>
-</ion-fab>
-
-
 <ion-content>
+
     <div class="contenido">
+      <!-- VOLVER ATRAS -->
+      <ion-fab>
+        <button ion-fab mini color="primary" (click)="volver()">
+          <ion-icon name="md-arrow-round-back"></ion-icon>
+        </button>
+      </ion-fab>
         <!--OPCION ELEGIDA-->
         <p class="seccionTitulo">SUBIR - Cosas {{tematicaElegida}} del edificio</p>
 
         <!--TITULO + IMAGEN DESCRIPTIVA-->
         <ion-list>
-          <ion-item>
-            <ion-label class="tituloLabel" floating>Titulo</ion-label>
-            <ion-input type="text" [(ngModel)]="titulo"></ion-input>
-          </ion-item>
-          <ion-item *ngIf="imagenPreview">
+          <div>
+            <ion-label class="tituloLabel" floating>Título</ion-label>
+            <ion-input class="inputTitulo" type="text" [(ngModel)]="titulo" placeholder="Nombre" maxlength="10"></ion-input>
+          </div>
+          <div *ngIf="imagenPreview">
             <img class="imagen" [src]="imagenPreview">
-          </ion-item>
+          </div>
         </ion-list>
 
         <!--OPCIONES DE SELECCION DE IMAGEN-->

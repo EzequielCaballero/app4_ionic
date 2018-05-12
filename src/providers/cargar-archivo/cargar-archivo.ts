@@ -16,6 +16,8 @@ export class CargarArchivoProvider {
 
   imagenes:Archivo[] = []; //Fin: subir a DB la imagen subida en Storage
   lastKey: number = null; //Fin: controlar último elemento insertado en firebase
+  dataSub:any;
+  dataAllSub:any;
 
   constructor(public toastCtrl: ToastController,
               public afDB: AngularFireDatabase,
@@ -23,7 +25,7 @@ export class CargarArchivoProvider {
 
       console.log('Provider inyectado...');
       //CARGA: de un grupo de imágenes de la última a la primera.
-      this.leer_ultima_imagen().subscribe(()=>this.leer_imagenes());
+      this.dataSub = this.leer_ultima_imagen().subscribe(()=>this.leer_imagenes());
   }
 
   //LECTURA DE ULTIMA IMAGEN SUBIDA A FIREBASE
@@ -46,7 +48,7 @@ export class CargarArchivoProvider {
 
     let promesa = new Promise((resolve, reject)=>{
 
-      this.afDB.list('/galeria',
+      this.dataAllSub = this.afDB.list('/galeria',
         ref=> ref.limitToLast(5)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
                  .orderByChild('key')//Criterio de ordenación ASCENDENTE por key() -> n° de post
                  .endAt( this.lastKey )//Interrupción de la lectura al alcanzar último key.
@@ -133,6 +135,11 @@ export class CargarArchivoProvider {
 
       //Asignacion del nuevo "post" al array IMAGENES
       this.imagenes.push( galeria );
+  }
+
+  desuscribir(){
+    this.dataSub.unsubscribe();
+    this.dataAllSub.unsubscribe();
   }
 
   mostrar_toast( mensaje:string ){

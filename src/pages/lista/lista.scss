@@ -5,7 +5,50 @@ page-lista {
   }
 
   .listaDeDatos{
-    font-size: 1.5em;
+    font-size: 15px;
+  }
+
+  .imgSource{
+    max-width: 100%;
+    height: auto;
+  }
+
+  .LINDAS{
+    background-color: rgba(80, 222, 103, 0.41);
+  }
+
+  .FEAS{
+    background-color: rgba(218, 74, 74, 0.53);
+  }
+
+  .spinner {
+    width: 100px;
+    height: 100px;
+    margin: 100px auto;
+    background-color: rgba(#333333, 0);
+
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out;
+  }
+
+  @-webkit-keyframes sk-scaleout {
+    0% { -webkit-transform: scale(0) }
+    100% {
+      -webkit-transform: scale(1.0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes sk-scaleout {
+    0% {
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    } 100% {
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+      opacity: 0;
+    }
   }
 
 }

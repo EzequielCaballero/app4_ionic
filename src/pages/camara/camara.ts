@@ -12,7 +12,7 @@ import { CargarArchivoProvider } from "../../providers/cargar-archivo/cargar-arc
 })
 export class CamaraPage {
 
-  tematica:string;
+  tematicaElegida:string;
   titulo:string = "";
   imagenPreview:string = "";
   imagenParaSubir:string;
@@ -22,8 +22,8 @@ export class CamaraPage {
               public camera: Camera,
               public _cargarArchivo: CargarArchivoProvider) {
 
-        this.tematica = this.navParams.get('opcion');
-        console.log("Temática elegida: " + this.tematica);
+        this.tematicaElegida = this.navParams.get('opcion');
+        console.log("Temática elegida: " + this.tematicaElegida);
   }
 
   ionViewDidLoad() {
@@ -56,7 +56,8 @@ export class CamaraPage {
     //La variable "archivo" debe cumplir con la interface declarada
     let archivo = {
       img: this.imagenParaSubir,
-      titulo: this.titulo
+      titulo: this.titulo,
+      tematica: this.tematicaElegida
     }
     //Cargar imagenes al storage+database
     this._cargarArchivo.cargar_imagen_storage(archivo).then(()=>{

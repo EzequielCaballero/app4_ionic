@@ -4,5 +4,6 @@ export interface Archivo{
   fecha: string;
   hora: string;
   img: string;
-  key?: string;
+  tematica: string;
+  key?: number;
 }

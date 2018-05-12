@@ -8,21 +8,41 @@ page-captura {
 
   }
 
+  .cajaBoton{
+    font-style: italic;
+    font-size: 20px;
+    font-display: fallback;
+  }
+
   .buttonUno, .buttonDos{
     height: 100%;
     width: 100%;
   }
 
+  .buttonUno{
+    box-shadow: 0 5px 0 #ffffff;
+    background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,12,2,1) 3%, rgba(0,119,19,0.88) 31%, rgba(0,173,60,0.81) 48%, rgba(22,196,0,0.68) 78%, rgba(255,255,255,0.58) 100%);
+    background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(0,12,2,1) 3%,rgba(0,119,19,0.88) 31%,rgba(0,173,60,0.81) 48%,rgba(22,196,0,0.68) 78%,rgba(255,255,255,0.58) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,12,2,1) 3%,rgba(0,119,19,0.88) 31%,rgba(0,173,60,0.81) 48%,rgba(22,196,0,0.68) 78%,rgba(255,255,255,0.58) 100%);
+  }
+
+  .buttonDos{
+    box-shadow: 0 -5px 5px -5px #ffffff;
+    background: -moz-linear-gradient(top, rgba(244,244,244,0.54) 0%, rgba(243,237,236,0.54) 1%, rgba(204,37,0,0.67) 29%, rgba(244,0,0,0.86) 69%, rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(244,244,244,0.54) 0%,rgba(243,237,236,0.54) 1%,rgba(204,37,0,0.67) 29%,rgba(244,0,0,0.86) 69%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to bottom, rgba(244,244,244,0.54) 0%,rgba(243,237,236,0.54) 1%,rgba(204,37,0,0.67) 29%,rgba(244,0,0,0.86) 69%,rgba(0,0,0,1) 100%);
+  }
+
   .buttonUno:active{
     background-color: rgb(30, 105, 29);
     box-shadow: 0 5px 0 #04360c;
-    top: 2px;
+    bottom: 5px;
   }
 
   .buttonDos:active{
-    background-color: rgb(105, 29, 29);
-    box-shadow: 0 5px 0 #360404;
-    top: 2px;
+    background-color: rgb(68, 10, 10);
+    box-shadow: 0 5px 0 0 #380606;
+    top: 5px;
   }
 
 }

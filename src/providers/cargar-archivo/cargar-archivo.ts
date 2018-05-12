@@ -15,7 +15,7 @@ import 'rxjs/add/operator/map';
 export class CargarArchivoProvider {
 
   imagenes:Archivo[] = []; //Fin: subir a DB la imagen subida en Storage
-  lastKey: string = null; //Fin: controlar último elemento insertado en firebase
+  lastKey: number = null; //Fin: controlar último elemento insertado en firebase
 
   constructor(public toastCtrl: ToastController,
               public afDB: AngularFireDatabase,
@@ -29,11 +29,12 @@ export class CargarArchivoProvider {
   //LECTURA DE ULTIMA IMAGEN SUBIDA A FIREBASE
   private leer_ultima_imagen(){
     //Retorna un observable
-    return this.afDB.list('/galeria',ref=> ref.orderByKey().limitToLast(1))
+    return this.afDB.list('/galeria',ref=> ref.orderByKey())
            .valueChanges()
-           .map( (galeria:any) =>{
+           .map( (galeria:any) =>{ //definir 'galeria' de tipo any para que no de error.
 
-             this.lastKey = galeria[0].key; //definir 'galeria' de tipo any para que no de error.
+             this.lastKey = galeria[0].key; //tomar valor de ordenación del último dato cargado
+             console.info("DATOS: ", galeria);
              console.log("Ultima key: " + this.lastKey);
              this.imagenes.push(galeria[0]); // guarda en array imagenes la última img subida (por key).
 
@@ -47,7 +48,7 @@ export class CargarArchivoProvider {
 
       this.afDB.list('/galeria',
         ref=> ref.limitToLast(5)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
-                 .orderByKey()//Criterio de ordenación por key
+                 .orderByChild('key')//Criterio de ordenación ASCENDENTE por key() -> n° de post
                  .endAt( this.lastKey )//Interrupción de la lectura al alcanzar último key.
       ).valueChanges()
        .subscribe ( (galeria:any)=>{
@@ -84,7 +85,7 @@ export class CargarArchivoProvider {
       //Declaración
       let storeRef = firebase.storage().ref();
       //Tarea de Carga (creación de carpeta "img" si no existe en opción Storage de Firebase)
-      let unique_ID:string = new Date().valueOf().toString(); // 1231243245
+      let numPost:number = this.lastKey + 1;
       let uploadTask: firebase.storage.UploadTask =
         storeRef.child(`img/${ this.afAuth.auth.currentUser.uid }`)
                 .putString( archivo.img, 'base64', { contentType:'image/jpeg'});
@@ -103,7 +104,7 @@ export class CargarArchivoProvider {
               this.mostrar_toast("Carga exitosa");
               //FIN---pasar imagenes a la database, obteniendo URL generada
               let url = uploadTask.snapshot.downloadURL;
-              this.cargar_imagen_database(archivo.titulo, url, unique_ID);
+              this.cargar_imagen_database(archivo.titulo, archivo.tematica, url, numPost);
               resolve();
             }
         )
@@ -112,7 +113,7 @@ export class CargarArchivoProvider {
     return promesa;
   }//FIN DEL METODO
 
-  private cargar_imagen_database(titulo: string, url: string, unique_ID: string){
+  private cargar_imagen_database(titulo: string, tematica: string, url: string, numPost: number){
 
       //IMPORTANTE: "galeria" es el nombre del objeto creado en la DB
       let currentDate = new Date();
@@ -122,7 +123,8 @@ export class CargarArchivoProvider {
         fecha: currentDate.getDay().toString()+'/'+currentDate.getMonth().toString()+'/'+currentDate.getFullYear().toString(),
         hora: currentDate.getHours().toString()+':'+currentDate.getMinutes().toString(),
         img: url,
-        key: unique_ID //date in code
+        tematica: tematica,
+        key: numPost //date in code
       }
 
       console.log(JSON.stringify(galeria));

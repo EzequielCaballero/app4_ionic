@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { HomePage } from '../indexPaginas';
 import { CargarArchivoProvider } from '../../providers/cargar-archivo/cargar-archivo';
+//Interface de subir archivo
+import { Archivo } from "../../interfaces/archivo_interface";
 
 @Component({
   selector: 'page-lista',
@@ -9,7 +11,9 @@ import { CargarArchivoProvider } from '../../providers/cargar-archivo/cargar-arc
 })
 export class ListaPage {
 
+  mostrarSpinner:boolean = false;
   hayMasCarga:boolean = true; //Variable cuyo valor define si continua funcionando el Infinite Scroll
+  imagenes:Archivo[] = [];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -23,7 +27,15 @@ export class ListaPage {
   }
 
   ionViewDidLoad() {
-  }
+    this.mostrarSpinner = true;
+    this._cargarArchivo.leer_imagenes().then((resolve) => {
+      console.log(resolve);
+      this.imagenes = this._cargarArchivo.imagenes;
+      this.mostrarSpinner = false;
+   }, (err) => {
+      console.info("ERROR -> en la lectura de imagenes", JSON.stringify(err));
+   });
+ }
 
   //SCROLL INFINITO: carga por tanda de imágenes
   doInfinite(infiniteScrollEvent) {

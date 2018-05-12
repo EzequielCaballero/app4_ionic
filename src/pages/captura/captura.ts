@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { HomePage, CamaraPage } from '../indexPaginas';
+//TIMER
+import { timer } from 'rxjs/observable/timer';
+//jQUERY
+import * as $ from 'jquery';
 
 @Component({
   selector: 'page-captura',
@@ -22,12 +26,14 @@ export class CapturaPage {
     switch(opcion){
       case 1:
       this.opcionElegida = "LINDAS";
+      $('.buttonUno').addClass('animated fadeOutRight');
       break;
       case 2:
       this.opcionElegida = "FEAS";
+      $('.buttonDos').addClass('animated fadeOutRight');
       break;
     }
-    this.navCtrl.push(CamaraPage, {'opcion':this.opcionElegida});
+      timer(750).subscribe(()=> this.navCtrl.push(CamaraPage, {'opcion':this.opcionElegida}));
   }
 
   dispararAlerta(eleccion:string) {

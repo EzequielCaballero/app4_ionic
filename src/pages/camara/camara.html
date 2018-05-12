@@ -7,40 +7,45 @@
 </ion-fab>
 
 
-<ion-content padding>
+<ion-content>
+    <div class="contenido">
+        <!--OPCION ELEGIDA-->
+        <p class="seccionTitulo">SUBIR - Cosas {{tematicaElegida}} del edificio</p>
 
-    <!--TITULO + IMAGEN DESCRIPTIVA-->
-    <ion-list>
-      <ion-item>
-        <ion-label class="tituloLabel" floating>Titulo</ion-label>
-        <ion-input type="text" [(ngModel)]="titulo"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="imagenPreview">
-        <img class="imagen" [src]="imagenPreview">
-      </ion-item>
-    </ion-list>
+        <!--TITULO + IMAGEN DESCRIPTIVA-->
+        <ion-list>
+          <ion-item>
+            <ion-label class="tituloLabel" floating>Titulo</ion-label>
+            <ion-input type="text" [(ngModel)]="titulo"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="imagenPreview">
+            <img class="imagen" [src]="imagenPreview">
+          </ion-item>
+        </ion-list>
 
-    <!--OPCIONES DE SELECCION DE IMAGEN-->
-    <ion-grid>
-      <ion-row>
-          <ion-col>
-              <button ion-button item-left block
-                      (click)="mostrar_camara()">
-                  <ion-icon name="camera"></ion-icon>
-                  &nbsp;Tomar Foto
-              </button>
-          </ion-col>
-      </ion-row>
-    </ion-grid>
+        <!--OPCIONES DE SELECCION DE IMAGEN-->
+        <ion-grid>
+          <ion-row>
+              <ion-col>
+                  <button class="buttonCamara" ion-button
+                          (click)="mostrar_camara()">
+                      <ion-icon name="camera"></ion-icon>
+                  </button>
+              </ion-col>
+              <ion-col>
+                <button class="buttonSubir" ion-button
+                        (click)="crear_post()"
+                        [disabled]=" titulo.length <= 1 || imagenPreview.length <= 1 ">
+                        <ion-icon class="iconSubir" name="ios-cloud-upload-outline"></ion-icon>
+                </button>
+              </ion-col>
+          </ion-row>
+        </ion-grid>
 
-    <!--CARGAR A FIREBASE-->
-    <ion-buttons end>
+        <!--CARGAR A FIREBASE-->
+        <ion-buttons end>
 
-      <button class="buttonSubir" ion-button block
-              (click)="crear_post()"
-              [disabled]=" titulo.length <= 1 || imagenPreview.length <= 1 ">
-              <ion-icon class="iconSubir" name="ios-cloud-upload-outline"></ion-icon>
-      </button>
-    </ion-buttons>
+        </ion-buttons>
+    </div>
 
 </ion-content>

@@ -1,29 +1,36 @@
 <ion-content>
 
   <!-- VOLVER ATRAS -->
-  <ion-fab>
-    <button ion-fab mini color="primary" (click)="volver()">
-      <ion-icon name="md-arrow-round-back"></ion-icon>
-    </button>
-  </ion-fab>
+    <ion-fab>
+      <button ion-fab mini color="primary" (click)="volver()">
+        <ion-icon name="md-arrow-round-back"></ion-icon>
+      </button>
+    </ion-fab>
 
-  <div class="galeriaContenido">
-    <!--BLOQUE DE INFORMACIÓN "card"-->
-    <ion-card *ngFor="let item of _cargarArchivo.imagenes">
-      <img [src]=item.img>
-      <ion-card-content>
-          <ion-card-title class="listaDeDatos">
-            <strong>Usuario:</strong> {{item.usuario}}<br>
-            <strong>Título:</strong> {{item.titulo}}<br>
-            <strong>Día:</strong> {{item.fecha}}<br>
-            <strong>Hora:</strong> {{item.hora}}hs.
-          </ion-card-title>
-      </ion-card-content>
-    </ion-card>
+  <!-- CONTENIDO -->
+  <div *ngIf="!mostrarSpinner">
+      <div class="galeriaContenido">
+        <!--BLOQUE DE INFORMACIÓN "card"-->
+        <ion-card *ngFor="let item of imagenes">
+          <ion-card-content [ngClass]="item.tematica">
+              <img class="imgSource" [src]=item.img>
+              <ion-card-title class="listaDeDatos">
+                <strong>Usuario:</strong> {{item.usuario}}<br>
+                <strong>Título:</strong> {{item.titulo}}<br>
+                <strong>Día:</strong> {{item.fecha}}<br>
+                <strong>Hora:</strong> {{item.hora}}hs.
+              </ion-card-title>
+          </ion-card-content>
+        </ion-card>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
-                         [enabled]="hayMasCarga">
-       <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
+                             [enabled]="hayMasCarga">
+           <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+  </div>
+  <!-- SPINNER -->
+  <div *ngIf="mostrarSpinner" class="spinner">
+    <img src="assets/imgs/spinner_black.png" alt="spinner">
   </div>
 </ion-content>

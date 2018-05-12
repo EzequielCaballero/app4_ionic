@@ -1,14 +1,35 @@
 page-camara {
 
+  .contenido{
+
+  }
+
+  .seccionTitulo{
+    background-color: rgb(218, 181, 98);
+    font-size: 16px;
+    font-style: oblique;
+    font-family: inherit;
+    border: 3px solid rgb(54, 37, 10);
+    text-align: center;
+  }
+
   .tituloLabel{
     text-align: right;
+  }
+
+  .buttonCamara{
+    font-size: 40px;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
   }
 
   .buttonSubir{
     background-color: rgb(53, 193, 117);
     display:block;
-    height: 150px;
-    width: 150px;
+    height: 100px;
+    width: 100px;
     margin: 0 auto;
     border-radius: 50%;
   }

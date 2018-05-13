@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CapturaPage } from '../indexPaginas';
+import { HomePage, CapturaPage } from '../indexPaginas';
 //*********************CAMARA PLUGIN***********************//
 import { Camera, CameraOptions } from '@ionic-native/camera';
 //******************PROVIDER********************//
@@ -60,13 +60,14 @@ export class CamaraPage {
       tematica: this.tematicaElegida
     }
     //Cargar imagenes al storage+database
-    this._cargarArchivo.cargar_imagen_storage(archivo).then(()=>{
-      //Cerrar el modal
-      //this.cerrarModal();
+    this._cargarArchivo.cargar_imagen_storage(archivo).then((resultado)=>{
+      console.log("Todo OK");
+      this.navCtrl.push(HomePage);
     });
   }
 
   volver(){
+    //this._cargarArchivo.desuscribir();
     this.navCtrl.push(CapturaPage);
   }
 

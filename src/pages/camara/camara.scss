@@ -9,9 +9,16 @@ page-camara {
     height: 100%;
   }
 
-  .seccionTitulo{
+  .LINDAS{
+    background-color: rgba(80, 222, 103, 0.41);
+  }
+
+  .FEAS{
+    background-color: rgba(218, 74, 74, 0.53);
+  }
+
+  #seccionTitulo{
     padding: 3px;
-    background-color: rgb(218, 181, 98);
     font-size: 16px;
     font-style: oblique;
     font-weight: bold;
@@ -22,10 +29,11 @@ page-camara {
   }
 
   .tituloLabel{
-    color: white;
+    color: black;
     text-align: right;
     font-size: 15px;
     font-style: italic;
+    font-weight: bold;
   }
 
   .inputTitulo[type=text]{
@@ -48,6 +56,9 @@ page-camara {
       box-shadow: none;
   }
 
+  .filaBotones{
+    text-align: center;
+  }
 
   .buttonCamara{
     font-size: 40px;
@@ -55,25 +66,28 @@ page-camara {
     width: 100px;
     margin: 0 auto;
     border-radius: 50%;
+    background: rgb(0,0,0);
+    background: -moz-linear-gradient(45deg, rgba(0,0,0,1) 1%, rgba(64,150,238,1) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(0,0,0,1) 1%,rgba(64,150,238,1) 100%);
+    background: linear-gradient(45deg, rgba(0,0,0,1) 1%,rgba(64,150,238,1) 100%);
   }
 
   .buttonSubir{
-    background-color: rgb(53, 193, 117);
-    display:block;
+    font-size: 40px;
     height: 100px;
     width: 100px;
     margin: 0 auto;
     border-radius: 50%;
+    background: rgb(211,255,130);
+    background: -moz-linear-gradient(45deg, rgba(211,255,130,1) 2%, rgba(117,211,69,1) 44%, rgba(74,150,49,1) 65%, rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(211,255,130,1) 2%,rgba(117,211,69,1) 44%,rgba(74,150,49,1) 65%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(45deg, rgba(211,255,130,1) 2%,rgba(117,211,69,1) 44%,rgba(74,150,49,1) 65%,rgba(0,0,0,1) 100%);
   }
 
   .buttonSubir:active {
     box-shadow: 0 5px 0 #043609;
     background: #0f4e31;
     top: 5px;
-  }
-
-  .iconSubir{
-    font-size: 50px;
   }
 
   .imagen{

@@ -37,17 +37,20 @@ export class ListaPage {
   //SCROLL INFINITO: carga por tanda de imágenes
   doInfinite(infiniteScrollEvent) {
     console.log('Begin async operation');
-
+    //this._cargarArchivo.destroy$.subscribe();
     this._cargarArchivo.leer_imagenes().then(
       (hayMas:boolean)=>{
       console.log("Hay más imágenes: " + hayMas);
+      console.log("Valor ultima key (seria la primera): " + this._cargarArchivo.lastKey);
       this.hayMasCarga = hayMas;
       infiniteScrollEvent.complete();
+    }).catch((error)=>{
+      console.log("Error al hacer scroll-down" + JSON.stringify(error));
     });
   }
 
   volver(){
-    this._cargarArchivo.desuscribir();
+    //this._cargarArchivo.desuscribir();
     this.navCtrl.push(HomePage);
   }
 

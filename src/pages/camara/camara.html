@@ -8,13 +8,13 @@
         </button>
       </ion-fab>
         <!--OPCION ELEGIDA-->
-        <p class="seccionTitulo">SUBIR - Cosas {{tematicaElegida}} del edificio</p>
+        <p id="seccionTitulo" [ngClass]="tematicaElegida">SUBIR - Cosas {{tematicaElegida}} del edificio</p>
 
         <!--TITULO + IMAGEN DESCRIPTIVA-->
         <ion-list>
           <div>
             <ion-label class="tituloLabel" floating>Título</ion-label>
-            <ion-input class="inputTitulo" type="text" [(ngModel)]="titulo" placeholder="Nombre" maxlength="10"></ion-input>
+            <ion-input class="inputTitulo" type="text" [(ngModel)]="titulo" placeholder="Nombre" maxlength="20"></ion-input>
           </div>
           <div *ngIf="imagenPreview">
             <img class="imagen" [src]="imagenPreview">
@@ -23,7 +23,7 @@
 
         <!--OPCIONES DE SELECCION DE IMAGEN-->
         <ion-grid>
-          <ion-row>
+          <ion-row class="filaBotones">
               <ion-col>
                   <button class="buttonCamara" ion-button
                           (click)="mostrar_camara()">

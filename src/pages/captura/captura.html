@@ -1,29 +1,31 @@
 <ion-content>
 
-  <!-- VOLVER ATRAS -->
-  <ion-fab>
-    <button ion-fab mini color="primary" (click)="volver()">
-      <ion-icon name="md-arrow-round-back"></ion-icon>
-    </button>
-  </ion-fab>
+  <div class="contenido">
+      <!-- VOLVER ATRAS -->
+      <ion-fab>
+        <button ion-fab mini color="primary" (click)="volver()">
+          <ion-icon name="md-arrow-round-back"></ion-icon>
+        </button>
+      </ion-fab>
 
-  <!-- BOTON 1 -->
-  <div class="cajaPanel">
-    <div class="cajaBoton">
-      <button class="buttonUno" ion-button icon-right block
-        (click)="verAlerta(1)">
-        SUBIR Cosas lindas
-        <ion-icon name="md-checkmark-circle"></ion-icon>
-      </button>
-    </div>
-    <!-- BOTON 2 -->
-    <div class="cajaBoton">
-      <button class="buttonDos" ion-button icon-right block
-        (click)="verAlerta(2)">
-        SUBIR Cosas feas
-        <ion-icon name="md-close-circle"></ion-icon>
-      </button>
-    </div>
+      <div class="cajaPanel">
+        <!-- BOTON 1 -->
+        <div id="cajaBoton">
+          <button class="buttonUno" ion-button icon-right
+            (click)="verAlerta(1)">
+            SUBIR Cosas lindas
+            <ion-icon name="md-checkmark-circle"></ion-icon>
+          </button>
+        </div>
+        <!-- BOTON 2 -->
+        <div id="cajaBoton">
+          <button class="buttonDos" ion-button icon-right
+            (click)="verAlerta(2)">
+            SUBIR Cosas feas
+            <ion-icon name="md-close-circle"></ion-icon>
+          </button>
+        </div>
+      </div>
   </div>
 
 </ion-content>

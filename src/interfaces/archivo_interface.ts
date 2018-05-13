@@ -5,5 +5,5 @@ export interface Archivo{
   hora: string;
   img: string;
   tematica: string;
-  key?: number;
+  key?: string;
 }

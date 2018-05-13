@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { LoginPage, CapturaPage, ListaPage } from '../../pages/indexPaginas';
 //FIREBASE
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -18,7 +18,13 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private afAuth:AngularFireAuth) {
+              private afAuth:AngularFireAuth,
+              private platform:Platform) {
+
+          this.platform.registerBackButtonAction(()=>{
+            console.log("Botón atrás del celular presionado!");
+            this.navCtrl.push(HomePage);
+          },1);
           //this.reproducirSonido();
           this.perfil = this.afAuth.auth.currentUser.displayName;
 
@@ -45,8 +51,8 @@ export class HomePage {
     this.afAuth
       .auth
       .signOut().then((resolve) => {
-        this.navCtrl.push(LoginPage)
-      });
+        //this._cargarArchivo.desuscribir();
+      }).then(()=>this.navCtrl.push(LoginPage));
   }
 
 }

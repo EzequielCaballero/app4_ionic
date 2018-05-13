@@ -1,5 +1,13 @@
 page-lista {
 
+  ion-content{
+    width: 100%;
+    background: rgb(38,21,7);
+    background: -moz-linear-gradient(45deg, rgba(38,21,7,1) 0%, rgba(186,98,35,1) 39%, rgba(221,135,73,1) 63%, rgba(249,227,174,1) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(38,21,7,1) 0%,rgba(186,98,35,1) 39%,rgba(221,135,73,1) 63%,rgba(249,227,174,1) 100%);
+    background: linear-gradient(45deg, rgba(38,21,7,1) 0%,rgba(186,98,35,1) 39%,rgba(221,135,73,1) 63%,rgba(249,227,174,1) 100%);
+  }
+
   .galeriaContenido{
     margin: 0 auto;
   }

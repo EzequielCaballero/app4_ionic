@@ -1,32 +1,33 @@
-<ion-content>
+<ion-content class="principal">
+  <div class="contenido">
+      <!-- VOLVER ATRAS -->
+        <ion-fab>
+          <button ion-fab mini color="primary" (click)="volver()">
+            <ion-icon name="md-arrow-round-back"></ion-icon>
+          </button>
+        </ion-fab>
 
-  <!-- VOLVER ATRAS -->
-    <ion-fab>
-      <button ion-fab mini color="primary" (click)="volver()">
-        <ion-icon name="md-arrow-round-back"></ion-icon>
-      </button>
-    </ion-fab>
+      <!-- CONTENIDO -->
+      <div *ngIf="!mostrarSpinner">
+          <div class="galeriaContenido">
+            <!--BLOQUE DE INFORMACIÓN "card"-->
+            <ion-card *ngFor="let item of _cargarArchivo.imagenes">
+              <ion-card-content [ngClass]="item.tematica">
+                  <img class="imgSource" [src]=item.img>
+                  <ion-card-title class="listaDeDatos">
+                    <strong>Usuario:</strong> {{item.usuario}}<br>
+                    <strong>Título:</strong> {{item.titulo}}<br>
+                    <strong>Día:</strong> {{item.fecha}}<br>
+                    <strong>Hora:</strong> {{item.hora}}hs.
+                  </ion-card-title>
+              </ion-card-content>
+            </ion-card>
 
-  <!-- CONTENIDO -->
-  <div *ngIf="!mostrarSpinner">
-      <div class="galeriaContenido">
-        <!--BLOQUE DE INFORMACIÓN "card"-->
-        <ion-card *ngFor="let item of _cargarArchivo.imagenes">
-          <ion-card-content [ngClass]="item.tematica">
-              <img class="imgSource" [src]=item.img>
-              <ion-card-title class="listaDeDatos">
-                <strong>Usuario:</strong> {{item.usuario}}<br>
-                <strong>Título:</strong> {{item.titulo}}<br>
-                <strong>Día:</strong> {{item.fecha}}<br>
-                <strong>Hora:</strong> {{item.hora}}hs.
-              </ion-card-title>
-          </ion-card-content>
-        </ion-card>
-
-        <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
-                             [enabled]="hayMasCarga">
-           <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
+                                 [enabled]="hayMasCarga">
+               <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+          </div>
       </div>
   </div>
   <!-- SPINNER -->

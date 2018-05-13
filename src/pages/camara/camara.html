@@ -2,7 +2,7 @@
 
     <div class="contenido">
       <!-- VOLVER ATRAS -->
-      <ion-fab>
+      <ion-fab top left>
         <button ion-fab mini color="primary" (click)="volver()">
           <ion-icon name="md-arrow-round-back"></ion-icon>
         </button>
@@ -10,40 +10,47 @@
         <!--OPCION ELEGIDA-->
         <p id="seccionTitulo" [ngClass]="tematicaElegida">SUBIR - Cosas {{tematicaElegida}} del edificio</p>
 
-        <!--TITULO + IMAGEN DESCRIPTIVA-->
-        <ion-list>
-          <div>
-            <ion-label class="tituloLabel" floating>Título</ion-label>
-            <ion-input class="inputTitulo" type="text" [(ngModel)]="titulo" placeholder="Nombre" maxlength="20"></ion-input>
-          </div>
-          <div *ngIf="imagenPreview">
-            <img class="imagen" [src]="imagenPreview">
-          </div>
-        </ion-list>
+      <div class="datosCargaBox" *ngIf="!mostrarSpinner">
+            <!--TITULO + IMAGEN DESCRIPTIVA-->
+            <ion-list>
+              <div>
+                <ion-label class="tituloLabel" floating>Título</ion-label>
+                <ion-input class="inputTitulo" type="text" [(ngModel)]="titulo" placeholder="Nombre" maxlength="20"></ion-input>
+              </div>
+              <!-- IMAGENES PREVIEW  -->
+              <ion-grid>
+                <ion-row class="imgContainer">
+                    <ion-col *ngFor="let img of listImagenPreview" class="imagenAsubir">
+                        <img *ngIf="img" class="imagen" [src]="img" alt="img">
+                    </ion-col>
+                </ion-row>
+              </ion-grid>
 
-        <!--OPCIONES DE SELECCION DE IMAGEN-->
-        <ion-grid>
-          <ion-row class="filaBotones">
-              <ion-col>
-                  <button class="buttonCamara" ion-button
-                          (click)="mostrar_camara()">
-                      <ion-icon name="camera"></ion-icon>
-                  </button>
-              </ion-col>
-              <ion-col>
-                <button class="buttonSubir" ion-button
-                        (click)="crear_post()"
-                        [disabled]=" titulo.length <= 1 || imagenPreview.length <= 1 ">
-                        <ion-icon class="iconSubir" name="ios-cloud-upload-outline"></ion-icon>
-                </button>
-              </ion-col>
-          </ion-row>
-        </ion-grid>
+            </ion-list>
 
-        <!--CARGAR A FIREBASE-->
-        <ion-buttons end>
-
-        </ion-buttons>
+            <!--OPCIONES DE SELECCION DE IMAGEN-->
+            <ion-grid>
+              <ion-row class="filaBotones">
+                  <ion-col>
+                      <button class="buttonCamara" ion-button
+                              (click)="mostrar_camara()">
+                          <ion-icon name="camera"></ion-icon>
+                      </button>
+                  </ion-col>
+                  <ion-col>
+                    <button class="buttonSubir" ion-button
+                            (click)="crear_post()"
+                            [disabled]=" titulo.length <= 1 || listImagenPreview.length <= 1 ">
+                            <ion-icon class="iconSubir" name="ios-cloud-upload-outline"></ion-icon>
+                    </button>
+                  </ion-col>
+              </ion-row>
+            </ion-grid>
+        </div>
+        <!-- SPINNER -->
+        <div *ngIf="mostrarSpinner" class="spinner">
+          <img src="assets/imgs/spinner_white.png" alt="spinner">
+        </div>
     </div>
 
 </ion-content>

@@ -38,7 +38,7 @@ export class CargarArchivoProvider {
   //LECTURA DE ULTIMA IMAGEN SUBIDA A FIREBASE
   private leer_ultima_imagen(){
     //Retorna un observable
-    return this.afDB.list('/galeria',ref=> ref.orderByKey().limitToLast(1))
+    return this.afDB.list('/galeria',ref=> ref.orderByChild('key').limitToLast(1))
            .valueChanges()
            .map( (galeria:any) =>{ //definir 'galeria' de tipo any para que no de error.
 
@@ -46,7 +46,6 @@ export class CargarArchivoProvider {
              console.info("DATOS: ", galeria);
              console.log("Ultima key: " + this.lastKey);
              this.imagenes.push(galeria[0]); // guarda en array imagenes la última img subida (por key).
-
            })
   }
 
@@ -56,12 +55,13 @@ export class CargarArchivoProvider {
     let promesa = new Promise((resolve, reject)=>{
 
       this.afDB.list('/galeria',
-        ref=> ref.limitToLast(5)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
-                 .orderByKey()//Criterio de ordenación ASCENDENTE por key() -> n° de post
+        ref=> ref.limitToLast(3)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
+                 .orderByChild('key')//Criterio de ordenación ASCENDENTE por key() -> n° de post
                  .endAt( this.lastKey )//Interrupción de la lectura al alcanzar último key.
       ).valueChanges()
        .takeUntil(this.destroy$)
        .subscribe ( (galeria:any)=>{
+          console.info("DATOS de galeria al leer", galeria);
           galeria.pop();//Elimina la última imágen del arreglo (que ya es subida por método: leer_ultima_imagen)
 
           //Si se alcanza el final de imágenes (primer imágen subida)...
@@ -130,8 +130,11 @@ export class CargarArchivoProvider {
 
       //IMPORTANTE: "galeria" es el nombre del objeto creado en la DB
       let currentDate = new Date();
-      let fecha:string = currentDate.getDay()+'/'+currentDate.getMonth()+'/'+currentDate.getFullYear();
+      console.log("Fecha generada: " + currentDate);
+      let fecha:string = currentDate.getDate()+'/'+(currentDate.getMonth() + 1)+'/'+currentDate.getFullYear();
+      console.log("Fecha: " + fecha);
       let hora:string = currentDate.getHours().toString()+':'+ (currentDate.getMinutes()<10?'0':'').toString() +currentDate.getMinutes().toString();
+      console.log("Hora: " + hora);
       let nuevaFoto:Archivo = {
         usuario: this.afAuth.auth.currentUser.email,
         titulo: titulo,
@@ -144,7 +147,7 @@ export class CargarArchivoProvider {
 
       console.log(JSON.stringify(nuevaFoto));
       //this.afDB.list(`/galeria`).push(nuevaFoto); //--------------------------- subida sin especificar key
-      this.afDB.object(`/galeria/${ this.imgStorage }`).update(nuevaFoto); // --- subida especificando custom key
+      this.afDB.object(`/galeria/${ imgKey }`).update(nuevaFoto); // --- subida especificando custom key
 
       //Asignacion del nuevo "post" al array IMAGENES
       this.imagenes.push( nuevaFoto );

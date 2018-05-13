@@ -9,7 +9,7 @@
 
       <!-- CONTENIDO -->
       <div *ngIf="!mostrarSpinner">
-          <div class="galeriaContenido">
+          <div *ngIf="!noHayFotos" class="galeriaContenido">
             <!--BLOQUE DE INFORMACIÓN "card"-->
             <ion-card *ngFor="let item of _cargarArchivo.imagenes">
               <ion-card-content [ngClass]="item.tematica">
@@ -27,6 +27,10 @@
                                  [enabled]="hayMasCarga">
                <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>
+          </div>
+          <div *ngIf="noHayFotos">
+            <br><br><br>
+            <h1>NO HAY FOTOS CARGADAS!</h1>
           </div>
       </div>
   </div>

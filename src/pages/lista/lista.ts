@@ -3,7 +3,7 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 import { HomePage } from '../indexPaginas';
 import { CargarArchivoProvider } from '../../providers/cargar-archivo/cargar-archivo';
 //TIMER
-import { timer } from 'rxjs/observable/timer';
+//import { timer } from 'rxjs/observable/timer';
 //Interface de subir archivo
 import { Archivo } from "../../interfaces/archivo_interface";
 
@@ -16,7 +16,7 @@ export class ListaPage {
   mostrarSpinner:boolean = false;
   hayMasCarga:boolean = true; //Variable cuyo valor define si continua funcionando el Infinite Scroll
   imagenes:Archivo[] = [];
-
+  noHayFotos:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -31,7 +31,20 @@ export class ListaPage {
 
   ionViewDidLoad() {
     this.mostrarSpinner = true;
-    timer(1500).subscribe(()=> this.mostrarSpinner = false);
+    this._cargarArchivo.leer_imagenes().then(()=>{
+      console.log("Cantidad de fotos: " + this._cargarArchivo.imagenes);
+      if(this._cargarArchivo.imagenes.length == 0)
+        this.noHayFotos = true;
+      this.mostrarSpinner = false;
+    }).catch(()=>{
+      console.log("Error al cargar imagenes");
+    });
+    // timer(2000).subscribe(()=> {
+    //   console.log("Cantidad de fotos: " + this._cargarArchivo.imagenes);
+    //   if(this._cargarArchivo.imagenes.length == 0)
+    //     this.noHayFotos = true;
+    //   this.mostrarSpinner = false;
+    // });
  }
 
   //SCROLL INFINITO: carga por tanda de imágenes
@@ -40,10 +53,10 @@ export class ListaPage {
     //this._cargarArchivo.destroy$.subscribe();
     this._cargarArchivo.leer_imagenes().then(
       (hayMas:boolean)=>{
-      console.log("Hay más imágenes: " + hayMas);
-      console.log("Valor ultima key (seria la primera): " + this._cargarArchivo.lastKey);
-      this.hayMasCarga = hayMas;
-      infiniteScrollEvent.complete();
+          console.log("Hay más imágenes: " + hayMas);
+          console.log("Valor ultima key (seria la primera): " + this._cargarArchivo.lastKey);
+          this.hayMasCarga = hayMas;
+          infiniteScrollEvent.complete();
     }).catch((error)=>{
       console.log("Error al hacer scroll-down" + JSON.stringify(error));
     });

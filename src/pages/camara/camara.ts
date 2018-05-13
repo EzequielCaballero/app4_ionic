@@ -14,8 +14,10 @@ export class CamaraPage {
 
   tematicaElegida:string;
   titulo:string = "";
-  imagenPreview:string = "";
-  imagenParaSubir:string;
+  listImagenPreview:string[] = [];
+  imagenParaSubir:string[] = [];
+  mostrarSpinner:boolean = false;
+  counter:number = 0;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -42,26 +44,36 @@ export class CamaraPage {
     }
 
     //Implementación y almacenado de la imagen tomada en base64
-     this.camera.getPicture(options).then((imageData) => {
-     this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
-     this.imagenParaSubir = imageData;
-    }, (err) => {
-       console.info("ERROR EN LA CAMARA", JSON.stringify(err));
-    });
+      if(this.counter <= 2){
+        this.camera.getPicture(options).then((imageData) => {
+            this.listImagenPreview[this.counter] = 'data:image/jpeg;base64,' + imageData;
+            this.imagenParaSubir[this.counter] = imageData;
+            this.counter++;
+      }, (err) => {
+          let currentDate = new Date();
+          console.log("Fecha generada: " + currentDate);
+          let fecha:string = currentDate.getDate()+'/'+(currentDate.getMonth() + 1)+'/'+currentDate.getFullYear();
+          console.log("Fecha: " + fecha);
+          let hora:string = currentDate.getHours().toString()+':'+ (currentDate.getMinutes()<10?'0':'').toString() +currentDate.getMinutes().toString();
+          console.log("Hora: " + hora);
+          console.info("ERROR EN LA CAMARA", JSON.stringify(err));
+      });
+    }//FIN IF contador
   }
 
   //SUBIR IMAGENES A FIREBASE
   crear_post(){
-
+    this.mostrarSpinner = true;
     //La variable "archivo" debe cumplir con la interface declarada
     let archivo = {
-      img: this.imagenParaSubir,
+      img: JSON.stringify(this.imagenParaSubir),
       titulo: this.titulo,
       tematica: this.tematicaElegida
     }
     //Cargar imagenes al storage+database
     this._cargarArchivo.cargar_imagen_storage(archivo).then((resultado)=>{
       console.log("Todo OK");
+      this.mostrarSpinner = false;
       this.navCtrl.push(HomePage);
     });
   }

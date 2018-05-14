@@ -18,11 +18,12 @@ import 'rxjs/add/operator/takeUntil';
 export class CargarArchivoProvider {
 
   imagenes:Archivo[] = []; //Fin: subir a DB la imagen subida en Storage
+  imgsCapturadas:string[] = [];//array de imgs64
+  urlsImagenes:string[] = [];//urls unidas en un JSON
   lastKey: string = null; //Fin: controlar último elemento insertado en firebase
-  imgStorage:string;
-  // dataSub:Observable<any>;
-  // dataAllSub:any;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  imgStorage:string;//título de referencia de la imágen subida al storage
+  counter:number;//contador para agregar N° de img al imgStorage
+  destroy$: Subject<boolean> = new Subject<boolean>();//referencia para realizar unsubscribe
 
   constructor(public toastCtrl: ToastController,
               public afDB: AngularFireDatabase,
@@ -30,11 +31,20 @@ export class CargarArchivoProvider {
 
       console.log('Provider inyectado...');
       //CARGA: de un grupo de imágenes de la última a la primera.
-      this.leer_ultima_imagen()
-        .takeUntil(this.destroy$)
-        .subscribe(()=>this.leer_imagenes());
+
   }
 
+  //INICIAR LECTURA
+  iniciar_lectura(){
+    this.destroy$ = new Subject<boolean>();
+    this.imagenes = [];
+    const promise = new Promise( (resolve, reject)=>{
+      this.leer_ultima_imagen()
+        .takeUntil(this.destroy$)
+        .subscribe(()=>this.leer_imagenes().then(()=>resolve()));
+    });
+    return promise;
+  }
   //LECTURA DE ULTIMA IMAGEN SUBIDA A FIREBASE
   private leer_ultima_imagen(){
     //Retorna un observable
@@ -51,7 +61,7 @@ export class CargarArchivoProvider {
 
   //LECTURA DE IMAGENES POR TANDA
   leer_imagenes(){
-
+    //Retorna una promesa
     let promesa = new Promise((resolve, reject)=>{
 
       this.afDB.list('/galeria',
@@ -89,58 +99,72 @@ export class CargarArchivoProvider {
   cargar_imagen_storage( archivo:any ){
 
     //Promesa que determina un tiempo hasta que se complete la carga de la imagen
-    let promesa = new Promise( (resolve, reject)=>{
+    const promesa = new Promise( (resolve, reject)=>{
       //Mensajes de interacción con el usuario...
       this.mostrar_toast("Cargando...");
       //Declaración
       let storeRef = firebase.storage().ref();
       //Tarea de Carga (creación de carpeta "img" si no existe en opción Storage de Firebase)
       let imgKey:string = new Date().valueOf().toString(); // 1231243245
-      let numPost:number = this.imagenes.length + 1;
-      this.imgStorage = this.afAuth.auth.currentUser.uid +'_'+numPost;
-      console.log("Nueva foto n°" + numPost);
-      let uploadTask: firebase.storage.UploadTask =
-        storeRef.child(`img/${ this.imgStorage}`)
-                .putString( archivo.img, 'base64', { contentType:'image/jpeg'});
+      //String imagenes capturadas
+      this.imgsCapturadas = JSON.parse(archivo.img);
+      console.log("N° Imagenes capturadas: " + this.imgsCapturadas.length);
 
-      //EJECUCION DE TAREA DE CARGA
-        uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
-            ()=>{},//Saber el % de cuantos Mbs fueron subidos
-            ( error )=>{
-              //Manejo de error
-              console.info("ERROR EN LA CARGA", JSON.stringify(error));
-              this.mostrar_toast("Error"+JSON.stringify(error));
-            },
-            ()=>{
-              //Carga exitosa, TODO bien
-              console.log("Archivo subido");
-              this.mostrar_toast("Carga exitosa");
-              //FIN---pasar imagenes a la database, obteniendo URL generada
-              let url = uploadTask.snapshot.downloadURL;
-              this.cargar_imagen_database(archivo.titulo, archivo.tematica, url, imgKey);
-              resolve();
-            }
-        )
-      });//FIN DE LA PROMESA
-
+      //SUBIDA DE IMAGENES
+      this.urlsImagenes = [];
+      this.counter = 1;
+      let numImg = 0;
+      for(let i of this.imgsCapturadas){
+        numImg++;
+        let numPost:number = this.imagenes.length + numImg;
+        this.imgStorage = imgKey +'_'+numPost;
+        console.log("Nueva foto n°" + numPost);
+        let uploadTask: firebase.storage.UploadTask =
+          storeRef.child(`img/${ this.imgStorage}`)
+                  .putString( i, 'base64', { contentType:'image/jpeg'});
+                  //EJECUCION DE TAREA DE CARGA
+                  uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED, //Tarda c/subida
+                  ()=>{},//Saber el % de cuantos Mbs fueron subidos
+                  ( error )=>{
+                    //Manejo de error
+                    console.info("ERROR EN LA CARGA", JSON.stringify(error));
+                    this.mostrar_toast("Error"+JSON.stringify(error));
+                  },
+                  ()=>{
+                    //Carga exitosa, TODO bien
+                    console.log("Archivo subido");
+                    let urlImg = uploadTask.snapshot.downloadURL;
+                    this.urlsImagenes.push(urlImg.toString());
+                    if(this.counter == this.imgsCapturadas.length){
+                      this.mostrar_toast("Carga exitosa");
+                      console.log("N° URLs: " + this.urlsImagenes.length);
+                      this.cargar_imagen_database(archivo.titulo, archivo.tematica, this.urlsImagenes, imgKey);
+                      resolve();
+                    }
+                    this.counter++;
+                  }
+              )
+      }//FIN DE LA SUBIDA
+      //FIN---pasar imagenes a la database, obteniendo URL generada
+    });//FIN DE LA PROMESA
     return promesa;
   }//FIN DEL METODO
 
-  private cargar_imagen_database(titulo: string, tematica: string, url: string, imgKey: string){
+  private cargar_imagen_database(titulo: string, tematica: string, url: string[], imgKey: string){
 
       //IMPORTANTE: "galeria" es el nombre del objeto creado en la DB
       let currentDate = new Date();
-      console.log("Fecha generada: " + currentDate);
       let fecha:string = currentDate.getDate()+'/'+(currentDate.getMonth() + 1)+'/'+currentDate.getFullYear();
       console.log("Fecha: " + fecha);
       let hora:string = currentDate.getHours().toString()+':'+ (currentDate.getMinutes()<10?'0':'').toString() +currentDate.getMinutes().toString();
       console.log("Hora: " + hora);
+      //url.shift();
       let nuevaFoto:Archivo = {
         usuario: this.afAuth.auth.currentUser.email,
         titulo: titulo,
         fecha: fecha,
         hora: hora,
-        img: url,
+        img: JSON.stringify(url),
         tematica: tematica,
         key: imgKey //date in code
       }
@@ -150,7 +174,7 @@ export class CargarArchivoProvider {
       this.afDB.object(`/galeria/${ imgKey }`).update(nuevaFoto); // --- subida especificando custom key
 
       //Asignacion del nuevo "post" al array IMAGENES
-      this.imagenes.push( nuevaFoto );
+      //this.imagenes.push( nuevaFoto );
   }
 
   desuscribir(){

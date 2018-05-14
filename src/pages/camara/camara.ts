@@ -15,7 +15,8 @@ export class CamaraPage {
   tematicaElegida:string;
   titulo:string = "";
   listImagenPreview:string[] = [];
-  imagenParaSubir:string[] = [];
+  imagenesParaSubir:string[] = [];
+  maximaCarga:boolean = false;
   mostrarSpinner:boolean = false;
   counter:number = 0;
 
@@ -28,8 +29,8 @@ export class CamaraPage {
         console.log("Temática elegida: " + this.tematicaElegida);
   }
 
-  ionViewDidLoad() {
-
+  ionViewWillEnter() {
+    this._cargarArchivo.iniciar_lectura();
   }
 
   //*******************METODO CAMARA*******************//
@@ -47,7 +48,7 @@ export class CamaraPage {
       if(this.counter <= 2){
         this.camera.getPicture(options).then((imageData) => {
             this.listImagenPreview[this.counter] = 'data:image/jpeg;base64,' + imageData;
-            this.imagenParaSubir[this.counter] = imageData;
+            this.imagenesParaSubir[this.counter] = imageData;
             this.counter++;
       }, (err) => {
           let currentDate = new Date();
@@ -59,6 +60,8 @@ export class CamaraPage {
           console.info("ERROR EN LA CAMARA", JSON.stringify(err));
       });
     }//FIN IF contador
+    if(this.counter == 3)
+      this.maximaCarga = true;
   }
 
   //SUBIR IMAGENES A FIREBASE
@@ -66,14 +69,17 @@ export class CamaraPage {
     this.mostrarSpinner = true;
     //La variable "archivo" debe cumplir con la interface declarada
     let archivo = {
-      img: JSON.stringify(this.imagenParaSubir),
+      img: JSON.stringify(this.imagenesParaSubir),
       titulo: this.titulo,
       tematica: this.tematicaElegida
     }
+    console.log("Imagenes por subir: " + JSON.stringify(this.imagenesParaSubir));
     //Cargar imagenes al storage+database
     this._cargarArchivo.cargar_imagen_storage(archivo).then((resultado)=>{
       console.log("Todo OK");
       this.mostrarSpinner = false;
+      this._cargarArchivo.imagenes = [];
+      this._cargarArchivo.desuscribir();
       this.navCtrl.push(HomePage);
     });
   }

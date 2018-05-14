@@ -107,8 +107,7 @@ export class LoginPage {
           break;
           case "sIzJqRlfOUMqz3zLMmnSoPyNdzk2": this.perfil = "Tester";
           break;
-        }
-          this.mostrarSpinner = false;
+        }  
           this.ingresar();
         //this.ingresar(value);
       })
@@ -127,6 +126,7 @@ export class LoginPage {
       //photoURL: "https://example.com/jane-q-user/profile.jpg"
     }).then(value => {
       // Update successful.
+      this.mostrarSpinner = false;
       this.navCtrl.push(HomePage);
     })
     .catch(err => {

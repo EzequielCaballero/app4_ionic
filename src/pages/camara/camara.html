@@ -33,14 +33,15 @@
               <ion-row class="filaBotones">
                   <ion-col>
                       <button class="buttonCamara" ion-button
-                              (click)="mostrar_camara()">
+                              (click)="mostrar_camara()"
+                              [disabled]="maximaCarga">
                           <ion-icon name="camera"></ion-icon>
                       </button>
                   </ion-col>
                   <ion-col>
                     <button class="buttonSubir" ion-button
                             (click)="crear_post()"
-                            [disabled]=" titulo.length <= 1 || listImagenPreview.length <= 1 ">
+                            [disabled]=" titulo.length <= 1 || listImagenPreview.length <= 0 ">
                             <ion-icon class="iconSubir" name="ios-cloud-upload-outline"></ion-icon>
                     </button>
                   </ion-col>

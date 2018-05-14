@@ -29,17 +29,18 @@ export class ListaPage {
           },1);
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.mostrarSpinner = true;
-    this._cargarArchivo.leer_imagenes().then(()=>{
-      console.log("Cantidad de fotos: " + this._cargarArchivo.imagenes);
-      if(this._cargarArchivo.imagenes.length == 0)
-        this.noHayFotos = true;
-      this.mostrarSpinner = false;
+    this._cargarArchivo.iniciar_lectura().then(()=>{
+        //console.log("Cantidad de fotos: " + this._cargarArchivo.imagenes);
+        console.log("Ultima key actual: " + this._cargarArchivo.lastKey);
+        if(this._cargarArchivo.imagenes.length == 0)
+          this.noHayFotos = true;
+        this.mostrarSpinner = false;
     }).catch(()=>{
-      console.log("Error al cargar imagenes");
+        console.log("Error al cargar imagenes");
     });
-    // timer(2000).subscribe(()=> {
+    // timer(5000).subscribe(()=> {
     //   console.log("Cantidad de fotos: " + this._cargarArchivo.imagenes);
     //   if(this._cargarArchivo.imagenes.length == 0)
     //     this.noHayFotos = true;

@@ -11,9 +11,16 @@
       <div *ngIf="!mostrarSpinner">
           <div *ngIf="!noHayFotos" class="galeriaContenido">
             <!--BLOQUE DE INFORMACIÓN "card"-->
-            <ion-card *ngFor="let item of _cargarArchivo.imagenes">
+            <ion-card *ngFor="let item of imagenesMostrar">
               <ion-card-content [ngClass]="item.tematica">
-                  <img class="imgSource" [src]=item.img>
+                  <div class="imgBox">
+                    <img class="imgSource" [src]=item.img[0]>
+                    <button *ngIf="item.img.length > 1"
+                            class="verMas" ion-button
+                            (click)="verMas(item)">
+                            <ion-icon name="md-add-circle"></ion-icon>
+                    </button>
+                  </div>
                   <ion-card-title class="listaDeDatos">
                     <strong>Usuario:</strong> {{item.usuario}}<br>
                     <strong>Título:</strong> {{item.titulo}}<br>

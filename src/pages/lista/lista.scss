@@ -22,11 +22,42 @@ page-lista {
   }
 
   .LINDAS{
-    background-color: rgba(80, 222, 103, 0.41);
+    background-color: rgba(23, 221, 55, 0.41);
   }
 
   .FEAS{
-    background-color: rgba(218, 74, 74, 0.53);
+    background-color: rgba(222, 22, 22, 0.53);
+  }
+
+  .imgBox {
+    position: relative;
+  }
+
+  /* Make the image responsive */
+  .imgBox img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Style the button and place it in the middle of the container/image */
+  .imgBox .verMas {
+    position: absolute;
+    top: 80%;
+    left: 85%;
+    //style
+    font-size: 15px;
+    height: 35px;
+    width: 30px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgb(57, 172, 47);
+    border: 1px solid rgb(47, 230, 98);
+  }
+
+  .verMas:active{
+    background-color: rgb(47, 230, 98);
+    border: 1px solid rgb(57, 172, 47);
   }
 
   .spinner {

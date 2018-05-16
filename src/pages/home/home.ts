@@ -5,6 +5,8 @@ import { LoginPage, CapturaPage, ListaPage } from '../../pages/indexPaginas';
 import { AngularFireAuth } from 'angularfire2/auth';
 //jQUERY
 import * as $ from 'jquery';
+//******************PROVIDER********************//
+import { CargarArchivoProvider } from "../../providers/cargar-archivo/cargar-archivo";
 
 @Component({
   selector: 'page-home',
@@ -19,10 +21,12 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private afAuth:AngularFireAuth,
-              private platform:Platform) {
+              private platform:Platform,
+              private _cargarArchivo:CargarArchivoProvider) {
 
           this.platform.registerBackButtonAction(()=>{
             console.log("Botón atrás del celular presionado!");
+            this._cargarArchivo.desuscribir();
             this.navCtrl.push(HomePage);
           },1);
           //this.reproducirSonido();

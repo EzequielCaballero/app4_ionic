@@ -3,7 +3,7 @@ export interface Archivo{
   titulo: string;
   fecha: string;
   hora: string;
-  img: string;
+  img: string[];
   tematica: string;
   key?: string;
 }

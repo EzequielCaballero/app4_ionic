@@ -30,7 +30,12 @@ export class CamaraPage {
   }
 
   ionViewWillEnter() {
-    this._cargarArchivo.iniciar_lectura();
+    this.mostrarSpinner = true;
+    this._cargarArchivo.iniciar_lectura().then(()=>{
+        this.mostrarSpinner = false;
+    }).catch(()=>{
+        console.log("Error al cargar imagenes");
+    });
   }
 
   //*******************METODO CAMARA*******************//
@@ -69,7 +74,7 @@ export class CamaraPage {
     this.mostrarSpinner = true;
     //La variable "archivo" debe cumplir con la interface declarada
     let archivo = {
-      img: JSON.stringify(this.imagenesParaSubir),
+      img: this.imagenesParaSubir,
       titulo: this.titulo,
       tematica: this.tematicaElegida
     }
@@ -85,7 +90,7 @@ export class CamaraPage {
   }
 
   volver(){
-    //this._cargarArchivo.desuscribir();
+    this._cargarArchivo.desuscribir();
     this.navCtrl.push(CapturaPage);
   }
 

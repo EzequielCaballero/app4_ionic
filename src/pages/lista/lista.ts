@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { HomePage } from '../indexPaginas';
 import { CargarArchivoProvider } from '../../providers/cargar-archivo/cargar-archivo';
-//TIMER
-//import { timer } from 'rxjs/observable/timer';
 //Interface de subir archivo
 import { Archivo } from "../../interfaces/archivo_interface";
 
@@ -15,7 +13,7 @@ export class ListaPage {
 
   mostrarSpinner:boolean = false;
   hayMasCarga:boolean = true; //Variable cuyo valor define si continua funcionando el Infinite Scroll
-  imagenes:Archivo[] = [];
+  imagenesMostrar:Archivo[] = [];
   noHayFotos:boolean = false;
 
   constructor(public navCtrl: NavController,
@@ -32,20 +30,22 @@ export class ListaPage {
   ionViewWillEnter() {
     this.mostrarSpinner = true;
     this._cargarArchivo.iniciar_lectura().then(()=>{
-        //console.log("Cantidad de fotos: " + this._cargarArchivo.imagenes);
         console.log("Ultima key actual: " + this._cargarArchivo.lastKey);
-        if(this._cargarArchivo.imagenes.length == 0)
-          this.noHayFotos = true;
-        this.mostrarSpinner = false;
-    }).catch(()=>{
-        console.log("Error al cargar imagenes");
+        if(this._cargarArchivo.imagenes.length == 0){
+           this.noHayFotos = true;
+        }
+        this.imagenesMostrar = this._cargarArchivo.imagenes;
+        // this.cargarLista();
+        // this.mostrarSpinner = false;
+    }).then(()=>{
+      this.mostrarSpinner = false;
+    }).catch((error)=>{
+        console.log("Error al cargar imagenes: " + JSON.stringify(error));
     });
-    // timer(5000).subscribe(()=> {
-    //   console.log("Cantidad de fotos: " + this._cargarArchivo.imagenes);
-    //   if(this._cargarArchivo.imagenes.length == 0)
-    //     this.noHayFotos = true;
-    //   this.mostrarSpinner = false;
-    // });
+ }
+
+ verMas(){
+    console.log("ver mas");
  }
 
   //SCROLL INFINITO: carga por tanda de imágenes
@@ -64,7 +64,7 @@ export class ListaPage {
   }
 
   volver(){
-    //this._cargarArchivo.desuscribir();
+    this._cargarArchivo.desuscribir();
     this.navCtrl.push(HomePage);
   }
 

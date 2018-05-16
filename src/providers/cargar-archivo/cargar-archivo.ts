@@ -65,7 +65,7 @@ export class CargarArchivoProvider {
     let promesa = new Promise((resolve, reject)=>{
 
       this.afDB.list('/galeria',
-        ref=> ref.limitToLast(3)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
+        ref=> ref.limitToLast(2)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
                  .orderByChild('key')//Criterio de ordenación ASCENDENTE por key() -> n° de post
                  .endAt( this.lastKey )//Interrupción de la lectura al alcanzar último key.
       ).valueChanges()
@@ -107,7 +107,7 @@ export class CargarArchivoProvider {
       //Tarea de Carga (creación de carpeta "img" si no existe en opción Storage de Firebase)
       let imgKey:string = new Date().valueOf().toString(); // 1231243245
       //String imagenes capturadas
-      this.imgsCapturadas = JSON.parse(archivo.img);
+      this.imgsCapturadas = archivo.img;
       console.log("N° Imagenes capturadas: " + this.imgsCapturadas.length);
 
       //SUBIDA DE IMAGENES
@@ -116,9 +116,7 @@ export class CargarArchivoProvider {
       let numImg = 0;
       for(let i of this.imgsCapturadas){
         numImg++;
-        let numPost:number = this.imagenes.length + numImg;
-        this.imgStorage = imgKey +'_'+numPost;
-        console.log("Nueva foto n°" + numPost);
+        this.imgStorage = imgKey +'_'+archivo.titulo+'_'+numImg;
         let uploadTask: firebase.storage.UploadTask =
           storeRef.child(`img/${ this.imgStorage}`)
                   .putString( i, 'base64', { contentType:'image/jpeg'});
@@ -164,7 +162,7 @@ export class CargarArchivoProvider {
         titulo: titulo,
         fecha: fecha,
         hora: hora,
-        img: JSON.stringify(url),
+        img: url,
         tematica: tematica,
         key: imgKey //date in code
       }

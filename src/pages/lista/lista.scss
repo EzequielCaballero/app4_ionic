@@ -8,6 +8,10 @@ page-lista {
     background: linear-gradient(45deg, rgba(38,21,7,1) 0%,rgba(186,98,35,1) 39%,rgba(221,135,73,1) 63%,rgba(249,227,174,1) 100%);
   }
 
+  ion-card {
+    border-top: 5px solid rgb(29, 63, 236);
+  }
+
   .galeriaContenido{
     margin: 0 auto;
   }
@@ -18,6 +22,11 @@ page-lista {
 
   .imgSource{
     max-width: 100%;
+    height: auto;
+  }
+
+  .imgSource_extra{
+    max-width: 50%;
     height: auto;
   }
 
@@ -40,7 +49,7 @@ page-lista {
   }
 
   /* Style the button and place it in the middle of the container/image */
-  .imgBox .verMas {
+  .imgBox .btn_verMas {
     position: absolute;
     top: 80%;
     left: 85%;
@@ -51,13 +60,26 @@ page-lista {
     margin: 0 auto;
     text-align: center;
     border-radius: 50%;
+  }
+
+  .btn_verMas.verMas_color{
     background-color: rgb(57, 172, 47);
     border: 1px solid rgb(47, 230, 98);
   }
 
-  .verMas:active{
+  .btn_verMas.verMas_color:active{
     background-color: rgb(47, 230, 98);
-    border: 1px solid rgb(57, 172, 47);
+    border: 1px solid rgb(40, 125, 33);
+  }
+
+  .btn_verMas.verMenos_color{
+    background-color: rgb(172, 47, 47);
+    border: 1px solid rgb(230, 47, 47);
+  }
+
+  .btn_verMas.verMenos_color:active{
+    background-color: rgb(230, 47, 47);
+    border: 1px solid rgb(125, 33, 33);
   }
 
   .spinner {

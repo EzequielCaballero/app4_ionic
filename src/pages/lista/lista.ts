@@ -4,6 +4,8 @@ import { HomePage } from '../indexPaginas';
 import { CargarArchivoProvider } from '../../providers/cargar-archivo/cargar-archivo';
 //Interface de subir archivo
 import { Archivo } from "../../interfaces/archivo_interface";
+//jQUERY
+import * as $ from 'jquery';
 
 @Component({
   selector: 'page-lista',
@@ -14,7 +16,8 @@ export class ListaPage {
   mostrarSpinner:boolean = false;
   hayMasCarga:boolean = true; //Variable cuyo valor define si continua funcionando el Infinite Scroll
   imagenesMostrar:Archivo[] = [];
-  noHayFotos:boolean = false;
+  noHayFotos:boolean = false; //Variable de control para definir si la DB esta vacía
+  expandirFotos:boolean = false; //Variable de control para definir si para un item puntual se expandió ver mas o no.
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -29,6 +32,7 @@ export class ListaPage {
 
   ionViewWillEnter() {
     this.mostrarSpinner = true;
+    this.expandirFotos = false;
     this._cargarArchivo.iniciar_lectura().then(()=>{
         console.log("Ultima key actual: " + this._cargarArchivo.lastKey);
         if(this._cargarArchivo.imagenes.length == 0){
@@ -44,8 +48,22 @@ export class ListaPage {
     });
  }
 
- verMas(){
-    console.log("ver mas");
+ verMas(item:Archivo){
+    console.log("Ver más de: " + item.usuario);
+    if(!this.expandirFotos){
+      $('#'+item.key+'.btn_verMas').removeClass("verMas_color");
+      $('#'+item.key+'.btn_verMas').addClass("verMenos_color");
+      $('#'+item.key+'.icon_verMas').text("-");
+      $('#'+item.key+'.box_verMas').show();
+      this.expandirFotos = true;
+    }
+    else{
+      $('#'+item.key+'.btn_verMas').removeClass("verMenos_color");
+      $('#'+item.key+'.btn_verMas').addClass("verMas_color");
+      $('#'+item.key+'.icon_verMas').text("+");
+      $('#'+item.key+'.box_verMas').hide();
+      this.expandirFotos = false;
+    }
  }
 
   //SCROLL INFINITO: carga por tanda de imágenes

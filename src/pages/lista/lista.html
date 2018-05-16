@@ -15,10 +15,16 @@
               <ion-card-content [ngClass]="item.tematica">
                   <div class="imgBox">
                     <img class="imgSource" [src]=item.img[0]>
+
+                    <div [id]="item.key" class="box_verMas" style="display:none;">
+                      <img *ngIf="item.img.length > 1" class="imgSource_extra" [src]=item.img[1]>
+                      <img *ngIf="item.img.length > 2" class="imgSource_extra" [src]=item.img[2]>
+                    </div>
+
                     <button *ngIf="item.img.length > 1"
-                            class="verMas" ion-button
+                            [id]="item.key" class="btn_verMas verMas_color" ion-button
                             (click)="verMas(item)">
-                            <ion-icon name="md-add-circle"></ion-icon>
+                            <ion-icon [id]="item.key" class="icon_verMas">+</ion-icon>
                     </button>
                   </div>
                   <ion-card-title class="listaDeDatos">

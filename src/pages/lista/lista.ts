@@ -18,6 +18,7 @@ export class ListaPage {
   imagenesMostrar:Archivo[] = [];
   noHayFotos:boolean = false; //Variable de control para definir si la DB esta vacía
   expandirFotos:boolean = false; //Variable de control para definir si para un item puntual se expandió ver mas o no.
+  loaded:boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,

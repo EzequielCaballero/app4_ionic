@@ -65,7 +65,7 @@ export class CargarArchivoProvider {
     let promesa = new Promise((resolve, reject)=>{
 
       this.afDB.list('/galeria',
-        ref=> ref.limitToLast(2)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
+        ref=> ref.limitToLast(5)//Especifico cuantas imágenes (orden cronológico descendente) serán cargadas
                  .orderByChild('key')//Criterio de ordenación ASCENDENTE por key() -> n° de post
                  .endAt( this.lastKey )//Interrupción de la lectura al alcanzar último key.
       ).valueChanges()

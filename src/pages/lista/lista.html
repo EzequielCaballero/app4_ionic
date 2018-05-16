@@ -14,7 +14,10 @@
             <ion-card *ngFor="let item of imagenesMostrar">
               <ion-card-content [ngClass]="item.tematica">
                   <div class="imgBox">
-                    <img class="imgSource" [src]=item.img[0]>
+                    <img class="imgSource" [src]=item.img[0] (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded">
+                    <div *ngIf="!loaded" class="spinner">
+                      <img src="assets/imgs/spinner_black.png" alt="spinner">
+                    </div>
 
                     <div [id]="item.key" class="box_verMas" style="display:none;">
                       <img *ngIf="item.img.length > 1" class="imgSource_extra" [src]=item.img[1]>

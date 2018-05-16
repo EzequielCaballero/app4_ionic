@@ -20,6 +20,10 @@ page-lista {
     font-size: 15px;
   }
 
+  .box_verMas{
+    display: flex;
+  }
+
   .imgSource{
     max-width: 100%;
     height: auto;
@@ -27,7 +31,7 @@ page-lista {
 
   .imgSource_extra{
     max-width: 50%;
-    height: auto;
+    max-height: 150px;
   }
 
   .LINDAS{

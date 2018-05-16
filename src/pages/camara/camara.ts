@@ -55,6 +55,8 @@ export class CamaraPage {
             this.listImagenPreview[this.counter] = 'data:image/jpeg;base64,' + imageData;
             this.imagenesParaSubir[this.counter] = imageData;
             this.counter++;
+            if(this.counter == 3)
+              this.maximaCarga = true;
       }, (err) => {
           let currentDate = new Date();
           console.log("Fecha generada: " + currentDate);
@@ -65,8 +67,6 @@ export class CamaraPage {
           console.info("ERROR EN LA CAMARA", JSON.stringify(err));
       });
     }//FIN IF contador
-    if(this.counter == 3)
-      this.maximaCarga = true;
   }
 
   //SUBIR IMAGENES A FIREBASE

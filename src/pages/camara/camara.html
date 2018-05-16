@@ -16,6 +16,7 @@
               <div>
                 <ion-label class="tituloLabel" floating>Título</ion-label>
                 <ion-input class="inputTitulo" type="text" [(ngModel)]="titulo" placeholder="Nombre" maxlength="20"></ion-input>
+                <p class="msjError" color="danger" ion-text *ngIf="titulo == '' ">Campo requerido ↑</p>
               </div>
               <!-- IMAGENES PREVIEW  -->
               <ion-grid>

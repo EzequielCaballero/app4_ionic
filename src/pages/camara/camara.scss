@@ -57,10 +57,30 @@ page-camara {
       box-shadow: none;
   }
 
+  .msjError{
+    margin: 0 auto;
+    position: fixed;
+    padding-left: 10px;
+  }
+
   .imgContainer{
     display: inline-flex;
     margin: 0 auto;
     text-align: center;
+    height: 100px;
+    width: 300px;
+  }
+
+  .imagenAsubir{
+    border: 3px solid white;
+    background-color: rgba(9, 0, 1, 0.75);
+    height: 100px;
+    width: 100px;
+  }
+
+  .imagen{
+    height: 100%;
+    width: 100%;
   }
 
   .filaBotones{
@@ -95,18 +115,6 @@ page-camara {
     box-shadow: 0 5px 0 #043609;
     background: #0f4e31;
     top: 5px;
-  }
-
-  .imagenAsubir{
-    border: 3px solid white;
-    background-color: rgba(9, 0, 1, 0.75);
-    height: 100px;
-    width: 100px;
-  }
-
-  .imagen{
-    height: 100%;
-    width: 100%;
   }
 
   .spinner {

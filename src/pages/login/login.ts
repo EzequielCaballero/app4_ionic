@@ -107,13 +107,13 @@ export class LoginPage {
           break;
           case "sIzJqRlfOUMqz3zLMmnSoPyNdzk2": this.perfil = "Tester";
           break;
-        }  
+        }
           this.ingresar();
         //this.ingresar(value);
       })
       .catch(err => {
         console.log('Algo salió mal: ',err.message);
-        this.reproducirSonido();
+        this.reproducirSonido("error");
         this.mostrarSpinner = false;
         this.mostrarAlerta();
       });
@@ -127,11 +127,12 @@ export class LoginPage {
     }).then(value => {
       // Update successful.
       this.mostrarSpinner = false;
+      this.reproducirSonido("todoOk");
       this.navCtrl.push(HomePage);
     })
     .catch(err => {
       console.log('Algo salió mal: ',err.message);
-      this.reproducirSonido();
+      this.reproducirSonido("error");
     });
   }
 
@@ -164,9 +165,16 @@ export class LoginPage {
     });
     toast.present();
   }
-  reproducirSonido(){
-    this.audio.src = "assets/sounds/windows_xp_error.mp3";
-    this.audio.load();
-    this.audio.play();
+  reproducirSonido(tipoSonido:string){
+    if(tipoSonido == "todoOk"){
+      this.audio.src = "assets/sounds/camera_click.mp3";
+      this.audio.load();
+      this.audio.play();
+    }
+    if(tipoSonido == "error"){
+      this.audio.src = "assets/sounds/windows_xp_error.mp3";
+      this.audio.load();
+      this.audio.play();
+    }
   }
 }

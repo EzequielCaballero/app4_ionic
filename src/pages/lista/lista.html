@@ -1,7 +1,7 @@
 <ion-content class="principal">
   <div class="contenido">
       <!-- VOLVER ATRAS -->
-        <ion-fab>
+        <ion-fab class="floatBack">
           <button ion-fab mini color="primary" (click)="volver()">
             <ion-icon name="md-arrow-round-back"></ion-icon>
           </button>
@@ -14,14 +14,13 @@
             <ion-card *ngFor="let item of imagenesMostrar">
               <ion-card-content [ngClass]="item.tematica">
                   <div class="imgBox">
-                    <img class="imgSource" [src]=item.img[0] (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded">
+                    <img [id]="item.key" class="imgSource_1" [src]=item.img[0] (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded">
                     <div *ngIf="!loaded" class="spinner">
                       <img src="assets/imgs/spinner_black.png" alt="spinner">
                     </div>
-
                     <div [id]="item.key" class="box_verMas" style="display:none;">
-                      <img *ngIf="item.img.length > 1" class="imgSource_extra" [src]=item.img[1]>
-                      <img *ngIf="item.img.length > 2" class="imgSource_extra" [src]=item.img[2]>
+                      <img [id]="item.key" *ngIf="item.img.length > 1" class="imgSource_2" [src]=item.img[1] (click)="expandirFoto(item.key, 1)">
+                      <img [id]="item.key" *ngIf="item.img.length > 2" class="imgSource_3" [src]=item.img[2] (click)="expandirFoto(item.key, 2)">
                     </div>
 
                     <button *ngIf="item.img.length > 1"

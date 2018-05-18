@@ -14,7 +14,6 @@ import { CargarArchivoProvider } from "../../providers/cargar-archivo/cargar-arc
 })
 export class HomePage {
 
-  audio = new Audio();
   perfil:string;
   mostrarSpinner:boolean = false;
 
@@ -29,7 +28,6 @@ export class HomePage {
             this._cargarArchivo.desuscribir();
             this.navCtrl.push(HomePage);
           },1);
-          //this.reproducirSonido();
           this.perfil = this.afAuth.auth.currentUser.displayName;
 
   }
@@ -39,11 +37,6 @@ export class HomePage {
     this.mostrarSpinner = false;
   }
 
-  reproducirSonido(){
-    this.audio.src = "assets/sounds/msg_notice.mp3";
-    this.audio.load();
-    this.audio.play();
-  }
   irTomarFoto(){
     this.navCtrl.push(CapturaPage);
   }

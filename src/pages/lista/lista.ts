@@ -34,6 +34,7 @@ export class ListaPage {
   ionViewWillEnter() {
     this.mostrarSpinner = true;
     this.expandirFotos = false;
+    this.loaded = false;
     this._cargarArchivo.iniciar_lectura().then(()=>{
         console.log("Ultima key actual: " + this._cargarArchivo.lastKey);
         if(this._cargarArchivo.imagenes.length == 0){
@@ -65,6 +66,22 @@ export class ListaPage {
       $('#'+item.key+'.box_verMas').hide();
       this.expandirFotos = false;
     }
+ }
+
+ expandirFoto(key:string, opcion:number){
+     let img_enPrimerPlano:string = $('#'+key+'.imgSource_1').attr("src");
+     let img_pasarArriba:string;
+
+     if(opcion == 1){
+       img_pasarArriba = $('#'+key+'.imgSource_2').attr("src");
+       $('#'+key+'.imgSource_2').attr("src",img_enPrimerPlano);
+     }
+     if(opcion == 2){
+       img_pasarArriba = $('#'+key+'.imgSource_3').attr("src");
+       $('#'+key+'.imgSource_3').attr("src",img_enPrimerPlano);
+     }
+
+     $('#'+key+'.imgSource_1').attr("src",img_pasarArriba);
  }
 
   //SCROLL INFINITO: carga por tanda de imágenes

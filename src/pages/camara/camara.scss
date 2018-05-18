@@ -12,10 +12,14 @@ page-camara {
 
   .LINDAS{
     background-color: rgba(80, 222, 103, 0.53);
+    border-top: 2px solid rgb(11, 54, 10);
+    border-bottom: 2px solid rgb(61, 233, 40);
   }
 
   .FEAS{
     background-color: rgba(218, 74, 74, 0.57);
+    border-top: 2px solid rgb(54, 10, 10);
+    border-bottom: 2px solid rgb(215, 44, 44);
   }
 
   #seccionTitulo{
@@ -24,8 +28,6 @@ page-camara {
     font-style: oblique;
     font-weight: bold;
     font-family: inherit;
-    border-top: 2px solid rgb(54, 37, 10);
-    border-bottom: 2px solid rgb(54, 37, 10);
     text-align: center;
   }
 
@@ -80,7 +82,7 @@ page-camara {
 
   .imagen{
     height: 100%;
-    width: 100%;
+    width: 100px;
   }
 
   .filaBotones{

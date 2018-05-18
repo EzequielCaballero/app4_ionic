@@ -19,6 +19,7 @@ export class CamaraPage {
   maximaCarga:boolean = false;
   mostrarSpinner:boolean = false;
   counter:number = 0;
+  audio = new Audio();
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -54,6 +55,7 @@ export class CamaraPage {
         this.camera.getPicture(options).then((imageData) => {
             this.listImagenPreview[this.counter] = 'data:image/jpeg;base64,' + imageData;
             this.imagenesParaSubir[this.counter] = imageData;
+            this.reproducirSonido("imagenCargada");
             this.counter++;
             if(this.counter == 3)
               this.maximaCarga = true;
@@ -85,8 +87,23 @@ export class CamaraPage {
       this.mostrarSpinner = false;
       this._cargarArchivo.imagenes = [];
       this._cargarArchivo.desuscribir();
+      this.reproducirSonido("todoOk");
       this.navCtrl.push(HomePage);
     });
+  }
+
+  reproducirSonido(tipoSonido:string){
+    if(tipoSonido == "todoOk"){
+      this.audio.src = "assets/sounds/notice_1.mp3";
+    }
+    if(tipoSonido == "imagenCargada"){
+      this.audio.src = "assets/sounds/reload_shotgun.mp3";
+    }
+    if(tipoSonido == "error"){
+      this.audio.src = "assets/sounds/windows_xp_error.mp3";
+    }
+    this.audio.load();
+    this.audio.play();
   }
 
   volver(){
